@@ -3,28 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Thera</title>
+    <title>Thera | La plataforma de alquiler de vehículos entre personas</title>
     <link href="styles.css" rel="stylesheet">
+    <link href="functions.js" rel="script">
 </head>
 <body>
 
-<!-- Video Background -->
-<div class="video-container">
-    <iframe
-            src="https://www.youtube.com/embed/9ZP7bpAC3FM?autoplay=1&mute=1&loop=1&playlist=9ZP7bpAC3FM&controls=0&showinfo=0&modestbranding=1&fs=0&disablekb=1&rel=0"
-            allow="autoplay; fullscreen"
-            allowfullscreen>
-    </iframe>
+<!-- Video Opener -->
+<section class="hero">
+    <div class="video-container">
+        <iframe
+                allow="autoplay"
+                src="https://www.youtube.com/embed/9ZP7bpAC3FM?autoplay=1&mute=1&loop=1&playlist=9ZP7bpAC3FM&controls=0&showinfo=0&fs=0&disablekb=1&rel=0"
+        ></iframe>
+    </div>
 
-</div>
+    <!-- Overlay Video -->
+    <div class="overlay"></div>
 
-<!-- Title -->
-<div class="title">
-    <h1>Thera</h1>
-</div>
+    <!-- Title Img Logo -->
+    <div class="logo-container">
+        <img alt="White Thera Logo" class="heroLogo" src="images/white-logo.png">
+    </div>
+</section>
 
 <!-- Navigation Bar -->
-<nav id="navbar">
+<nav id="navigationBar">
+    <div class="nav-logo">
+        <img alt="Offset Thera Logo" class="navLogo-img" src="images/offset-logo.png">
+    </div>
     <ul>
         <li><a href="index.html">Inicio</a></li>
         <li><a href="faq.html">FAQ</a></li>
@@ -32,5 +39,30 @@
     </ul>
 </nav>
 
+<!-- Content -->
+<section class="content">
+    <div class="text">
+        <h1> Bienvenido a Thera, la plataforma de renta de autos entre personas más grande de Argentina.</h1>
+        <p> ¡Con Thera podrás alquilar vehiculos por la cantidad de tiempo que necesites! Ya sea para un viaje que
+            tengas programado o quieras probar un vehículo en particular.</p>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</section>
+
+<!-- Search Bar -->
+<section class="searchBar">
+    <div class="searchBar_ui"></div>
+</section>
+
+<!-- Footer -->
+<section class="footer">
+    <footer>
+        <h3>Thera - © 2025</h3>
+        <button id="legal" name="legal">Legal</button>
+        <button id="privacy" name="privacy">Privacy</button>
+        <button id="contact" name="contact">Contact</button>
+    </footer>
+</section>
 </body>
 </html>
