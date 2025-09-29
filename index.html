@@ -42,17 +42,58 @@
 <!-- Content -->
 <section class="content">
     <div class="text">
-        <h1> Bienvenido a Thera, la plataforma de renta de autos entre personas más grande de Argentina.</h1>
-        <p> ¡Con Thera podrás alquilar vehiculos por la cantidad de tiempo que necesites! Ya sea para un viaje que
+        <h1> Bienvenido a Thera, la plataforma para renta de autos entre personas más grande de Argentina.</h1>
+        <p> ¡Con Thera podrás alquilar vehículos por la cantidad de tiempo que necesites! Ya sea para un viaje que
             tengas programado o quieras probar un vehículo en particular.</p>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 </section>
 
 <!-- Search Bar -->
 <section class="searchBar">
-    <div class="searchBar_ui"></div>
+    <div class="searchBar-container">
+        <form class="search-form">
+            <input class="location-input" placeholder="Ciudad, Barrio o Aeropuerto" type="text">
+            <input class="date-input" id="searchBar_dateStart" placeholder="Fecha de Incio" type="date" value="">
+            <input class="date-input" id="searchBar_dateEnd" placeholder="Fecha de Fin" type="date" value="">
+            <button class="search-button" type="submit">Buscar</button>
+        </form>
+    </div>
+</section>
+
+<!-- Car Options Slider -->
+<section class="carOptions">
+    <h2>Autos populares para alquilar</h2>
+    <div class="carOptionsCarousel-container">
+        <div class="carCard">
+            <img alt="" class="card-image" src="">
+            <div class="card-content">
+                <h3 class="card-title">Auto de prueba</h3>
+                <p class="card-details">Detalles</p>
+                <p class="card-price">$xxxxx</p>
+                <button class="reserve-button">Reservar</button>
+            </div>
+        </div>
+
+        <div class="carCard">
+            <img alt="" class="card-image" src="">
+            <div class="card-content">
+                <h3 class="card-title">Auto de prueba</h3>
+                <p class="card-details">Detalles</p>
+                <p class="card-price">$xxxxx</p>
+                <button class="reserve-button">Reservar</button>
+            </div>
+        </div>
+
+        <div class="carCard">
+            <img alt="" class="card-image" src="">
+            <div class="card-content">
+                <h3 class="card-title">Auto de prueba</h3>
+                <p class="card-details">Detalles</p>
+                <p class="card-price">$xxxxx</p>
+                <button class="reserve-button">Reservar</button>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- Footer -->

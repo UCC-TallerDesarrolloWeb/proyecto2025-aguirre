@@ -10,6 +10,7 @@ body {
     overflow: auto;
 }
 
+/*Video Opener*/
 .hero {
     position: relative;
     height: 100vh;
@@ -58,6 +59,7 @@ body {
     z-index: 1;
 }
 
+/*Navigation Bar*/
 #navigationBar {
     position: sticky;
     top: 0;
@@ -116,11 +118,175 @@ body {
     opacity: 1;
 }
 
+/*Content*/
 .content h1 {
     text-align: center;
     padding: 15px 0;
 }
 
+.content p {
+    text-align: center;
+}
+
+/*Search Bar*/
+.searchBar-container {
+    left: 50%;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 700px;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+}
+
+.search-form {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.search-form input {
+    flex-grow: 1;
+    padding: 15px 20px;
+    border: 2px solid #ddd;
+    border-right: none;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.location-input {
+    border-radius: 8px 0 0 8px;
+    border-right: 2px solid #ddd;
+}
+
+.date-input {
+    border-radius: 0;
+    border-right: 2px solid #ddd;
+}
+
+#searchBar_dateEnd {
+    border-right: none;
+}
+
+.search-button {
+    padding: 15px 25px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: border-color 0.3s;
+}
+
+.search-button:hover {
+    background: #0ef;
+}
+
+.date-input {
+    color: #888;
+}
+
+/*Car Options Slider*/
+/*Implementar que ocupen el ancho de la pantalla y agregar mas opciones*/
+.carOptions {
+    padding: 40px 50px;
+    max-width: 1200px;
+    margin: 0;
+}
+
+.carOptions h2 {
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    color: black;
+}
+
+.carOptionsCarousel-container {
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap;
+    cursor: grab;
+    user-select: none;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+}
+
+.carCard {
+    flex: 0 0 300px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    scroll-snap-align: start;
+}
+
+.carCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.card-details {
+    color: black;
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.card-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 15px;
+}
+
+.reserve-button {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: border-color 0.3s;
+}
+
+.reserve-button:hover {
+    background: #0ef;
+}
+
+/*Footer*/
 .footer {
     background-color: black;
     color: white;
