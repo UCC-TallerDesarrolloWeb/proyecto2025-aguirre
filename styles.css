@@ -108,16 +108,6 @@ body {
     color: #0ef;
 }
 
-.scrolled .heroLogo {
-    opacity: 0;
-    transform: scale(0.8);
-}
-
-.scrolled .navLogo-img {
-    width: 80px;
-    opacity: 1;
-}
-
 /*Content*/
 .content h1 {
     text-align: center;
@@ -305,19 +295,234 @@ body {
     cursor: pointer;
     font-weight: bold;
     transition: border-color 0.3s;
-
 }
 
 .seeMore-button:hover {
     background: #0ef;
 }
 
-/*Footer*/
-.footer {
+.infoSection {
+    padding: 60px 50px;
+    background-color: #f7f7f7;
+}
+
+
+.infoSection-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+}
+
+.col-aboutUs, .col-faq {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.infoSection-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.col-aboutUs {
+    line-height: 1.6;
+    color: black;
+    margin-bottom: 25px;
+}
+
+.aboutUs-button {
+    padding: 10px 20px;
     background-color: black;
     color: white;
-    position: static;
-    bottom: 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: border-color 0.3s;
+}
+
+.aboutUs-button:hover {
+    background: #0ef;
+}
+
+.faq-item {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-toggle {
+    display: none;
+}
+
+.faq-question {
+    display: block;
+    padding: 15px 0;
+    cursor: pointer;
+    font-weight: bold;
+    color: black;
+    position: relative;
+    padding-right: 30px;
+}
+
+.faq-question::after {
+    content: '\203A';
+    font-size: 1.5rem;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.faq-answer p {
+    padding: 0 0 15px 0;
+    color: black;
+    line-height: 1.5;
+}
+
+.faq-toggle:checked ~ .faq-answer {
+    max-height: 200px;
+}
+
+.faq-toggle:checked ~ .faq-question:after {
+    transform: translateY(-50%) rotate(-90deg);
+}
+
+.joinUs {
+    background-color: white;
+    color: black;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.joinUs-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.joinUs-container h3 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.joinUs-container p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: black;
+}
+
+.primary-button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: border-color 0.3s;
+}
+
+.primary-button:hover {
+    background-color: #0ef;
+    color: black;
+    border-color: #0ef;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.secondary-button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: black;
+    border: black solid 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.secondary-button:hover {
+    background-color: #0ef;
+    color: black;
+    border-color: #0ef;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/*Footer*/
+.main-footer {
+    background-color: #1a1a1a;
+    color: #ccc;
+    padding: 40px 50px;
+    position: relative;
     width: 100%;
-    height: 150px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.brand-info {
+    flex-grow: 1.5;
+    min-width: 250px;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 15px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.tagline {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    color: #999;
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 20px;
+}
+
+.footer-col h4 {
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.footer-col a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    transition: color 0.3s, padding-left 0.3s;
+}
+
+.footer-col a:hover {
+    color: #0ef;
+    text-decoration: underline;
+    padding-left: 5px;
 }
