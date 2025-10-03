@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <title>Thera | Busca y alquila un auto!</title>
     <link href="styles.css" rel="stylesheet">
-    <script src="functions.js"></script>
+    <script src="utils.js"></script>
 </head>
 <body>
 
-<!-- Navigation Bar-->
 <nav id="navigationBar">
-
     <div class="nav-logo">
         <img alt="Offset Thera Logo" class="navLogo-img" src="images/offset-logo.png">
     </div>
@@ -30,13 +28,11 @@
     </ul>
 </nav>
 
-<!-- Car Search Results -->
 <main class="search-results-page">
 
     <div class="car-list-column">
 
         <div class="controls-bar-split">
-
             <div class="control-group">
                 <button class="toggle-control-btn" id="toggleSort">
                     <span class="icon">⇅</span> Ordenar por
@@ -84,85 +80,14 @@
                         <label><input name="feature" type="checkbox" value="auto"> Automático</label>
                         <label><input name="feature" type="checkbox" value="ac"> Aire Acondicionado</label>
                     </div>
+
                     <button class="apply-filters-btn">Aplicar Filtros</button>
 
                 </div>
             </div>
-
         </div>
-
         <h1>Autos disponibles en Buenos Aires</h1>
         <div class="results-list">
-
-            <div class="search-car-card"
-                 data-distance="5.2"
-                 data-features="automatic ac"
-                 data-price="18000"
-                 data-rating="4.8"
-                 data-type="suv">
-
-                <img alt="Miniatura del auto" class="card-thumbnail" src="images/Jeep/Jeep%20Cherokee%20(1).jpg">
-
-                <div class="card-details">
-                    <h3 class="car-title">Jeep Cherokee 2020</h3>
-                    <p class="car-specs">
-                        <span class="spec-auto">Automático</span> | 5 Asientos | <span class="spec-ac">Aire Acondicionado</span>
-                    </p>
-                    <p class="car-location">📍 Palermo, CABA</p>
-                </div>
-
-                <div class="card-price-info">
-                    <span class="daily-price">$18.000</span> / día
-                    <p class="car-rating">⭐ <span class="rating-value">4.8</span> (20 reviews)</p>
-                    <button class="reserve-btn">Reservar</button>
-                </div>
-            </div>
-            <div class="search-car-card"
-                 data-distance="2.1"
-                 data-features="automatic gps"
-                 data-price="11500"
-                 data-rating="4.5"
-                 data-type="suv">
-
-                <img alt="Miniatura del auto" class="card-thumbnail" src="images/VW%20Taos/Taos%20(1).jpg">
-
-                <div class="card-details">
-                    <h3 class="car-title">VW Taos 2023</h3>
-                    <p class="car-specs">
-                        <span class="spec-auto">Automático</span> | 5 Asientos | <span class="spec-gps">GPS</span>
-                    </p>
-                    <p class="car-location">📍 Villa Crespo, CABA</p>
-                </div>
-
-                <div class="card-price-info">
-                    <span class="daily-price">$11.500</span> / día
-                    <p class="car-rating">⭐ <span class="rating-value">4.5</span> (12 reviews)</p>
-                    <button class="reserve-btn">Reservar</button>
-                </div>
-            </div>
-
-            <div class="search-car-card"
-                 data-distance="5.2"
-                 data-features="automatic ac"
-                 data-price="18000"
-                 data-rating="4.5"
-                 data-type="sedan">
-                <img alt="Miniatura del auto" class="card-thumbnail" src="">
-
-                <div class="card-details">
-                    <h3 class="car-title">Audi A3 Sedan</h3>
-                    <p class="car-specs">
-                        <span class="spec-auto">Automático</span> | 4 Asientos | <span class="spec-ac">Aire Acondicionado</span>
-                    </p>
-                    <p class="car-location">📍 Palermo, CABA</p>
-                </div>
-
-                <div class="card-price-info">
-                    <span class="daily-price">$18.000</span> / día
-                    <p class="car-rating">⭐ <span class="rating-value">4.5</span> (15 reviews)</p>
-                    <button class="reserve-btn">Reservar</button>
-                </div>
-            </div>
         </div>
     </div>
 
