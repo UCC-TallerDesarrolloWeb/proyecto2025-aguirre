@@ -2,9 +2,179 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Thera | Busca y alquila un auto!</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="functions.js"></script>
 </head>
 <body>
+
+<!-- Navigation Bar-->
+<nav id="navigationBar">
+
+    <div class="nav-logo">
+        <img alt="Offset Thera Logo" class="navLogo-img" src="images/offset-logo.png">
+    </div>
+
+    <form class="search-form compact-search-form">
+        <input class="location-input search-input" placeholder="Ciudad, Barrio o Aeropuerto" type="text">
+        <input class="date-input search-input" id="searchBar_dateStart" placeholder="Fecha de Inicio" type="date"
+               value="">
+        <input class="date-input search-input" id="searchBar_dateEnd" placeholder="Fecha de Fin" type="date" value="">
+        <button class="search-button" type="submit">Buscar</button>
+    </form>
+
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="faq.html">Preguntas Frecuentes</a></li>
+        <li><a href="account.html">Cuenta</a></li>
+    </ul>
+</nav>
+
+<!-- Car Search Results -->
+<main class="search-results-page">
+
+    <div class="car-list-column">
+
+        <div class="controls-bar-split">
+
+            <div class="control-group">
+                <button class="toggle-control-btn" id="toggleSort">
+                    <span class="icon">⇅</span> Ordenar por
+                </button>
+                <div class="control-panel hidden" id="sort-panel">
+                    <div class="filter-group">
+                        <select class="sort-select" id="sort-by">
+                            <option value="price-asc">Precio (más bajo)</option>
+                            <option value="price-desc">Precio (más alto)</option>
+                            <option value="rating">Mejor Calificación</option>
+                            <option value="distance">Distancia</option>
+                        </select>
+                        <button class="apply-sort-btn">Aplicar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <button class="toggle-control-btn" id="toggleFilters">
+                    <span class="icon"></span> Filtros
+                </button>
+                <div class="control-panel hidden" id="filters-panel">
+
+                    <div class="filter-group">
+                        <h4>Tipo de Vehículo</h4>
+                        <div class="filter-options-grid">
+                            <label><input name="type" type="checkbox" value="sedan"> Sedan</label>
+                            <label><input name="type" type="checkbox" value="suv"> SUV</label>
+                            <label><input name="hatchback" type="checkbox" value="hatchback"> Hatchback</label>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="filter-group">
+                        <h4>Precio Máximo</h4>
+                        <input id="price-range" max="30000" min="5000" step="1000" type="range" value="30000">
+                        <p>Hasta $<span id="current-price">30.000</span> / día</p>
+                    </div>
+
+                    <hr>
+
+                    <div class="filter-group">
+                        <h4>Características</h4>
+                        <label><input name="feature" type="checkbox" value="auto"> Automático</label>
+                        <label><input name="feature" type="checkbox" value="ac"> Aire Acondicionado</label>
+                    </div>
+                    <button class="apply-filters-btn">Aplicar Filtros</button>
+
+                </div>
+            </div>
+
+        </div>
+
+        <h1>Autos disponibles en Buenos Aires</h1>
+        <div class="results-list">
+
+            <div class="search-car-card"
+                 data-distance="5.2"
+                 data-features="automatic ac"
+                 data-price="18000"
+                 data-rating="4.8"
+                 data-type="suv">
+
+                <img alt="Miniatura del auto" class="card-thumbnail" src="images/Jeep/Jeep%20Cherokee%20(1).jpg">
+
+                <div class="card-details">
+                    <h3 class="car-title">Jeep Cherokee 2020</h3>
+                    <p class="car-specs">
+                        <span class="spec-auto">Automático</span> | 5 Asientos | <span class="spec-ac">Aire Acondicionado</span>
+                    </p>
+                    <p class="car-location">📍 Palermo, CABA</p>
+                </div>
+
+                <div class="card-price-info">
+                    <span class="daily-price">$18.000</span> / día
+                    <p class="car-rating">⭐ <span class="rating-value">4.8</span> (20 reviews)</p>
+                    <button class="reserve-btn">Reservar</button>
+                </div>
+            </div>
+            <div class="search-car-card"
+                 data-distance="2.1"
+                 data-features="automatic gps"
+                 data-price="11500"
+                 data-rating="4.5"
+                 data-type="suv">
+
+                <img alt="Miniatura del auto" class="card-thumbnail" src="images/VW%20Taos/Taos%20(1).jpg">
+
+                <div class="card-details">
+                    <h3 class="car-title">VW Taos 2023</h3>
+                    <p class="car-specs">
+                        <span class="spec-auto">Automático</span> | 5 Asientos | <span class="spec-gps">GPS</span>
+                    </p>
+                    <p class="car-location">📍 Villa Crespo, CABA</p>
+                </div>
+
+                <div class="card-price-info">
+                    <span class="daily-price">$11.500</span> / día
+                    <p class="car-rating">⭐ <span class="rating-value">4.5</span> (12 reviews)</p>
+                    <button class="reserve-btn">Reservar</button>
+                </div>
+            </div>
+
+            <div class="search-car-card"
+                 data-distance="5.2"
+                 data-features="automatic ac"
+                 data-price="18000"
+                 data-rating="4.5"
+                 data-type="sedan">
+                <img alt="Miniatura del auto" class="card-thumbnail" src="">
+
+                <div class="card-details">
+                    <h3 class="car-title">Audi A3 Sedan</h3>
+                    <p class="car-specs">
+                        <span class="spec-auto">Automático</span> | 4 Asientos | <span class="spec-ac">Aire Acondicionado</span>
+                    </p>
+                    <p class="car-location">📍 Palermo, CABA</p>
+                </div>
+
+                <div class="card-price-info">
+                    <span class="daily-price">$18.000</span> / día
+                    <p class="car-rating">⭐ <span class="rating-value">4.5</span> (15 reviews)</p>
+                    <button class="reserve-btn">Reservar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="map-column">
+        <div id="map-container">
+            <iframe allowfullscreen=""
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d133823.20884157837!2d-64.18993869252525!3d-31.4221598890787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1759422980713!5m2!1ses!2sar"
+                    style="border:0;"></iframe>
+        </div>
+    </div>
+</main>
 
 </body>
 </html>

@@ -526,3 +526,232 @@ body {
     text-decoration: underline;
     padding-left: 5px;
 }
+
+.search-results-page {
+    display: flex;
+    /* Altura total de la vista menos un estimado del header (ej. 80px) */
+    height: calc(100vh - 80px);
+    width: 100%;
+}
+
+/* --- COLUMNA DE LISTA --- */
+.car-list-column {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-width: 350px;
+}
+
+.car-list-column h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.results-list {
+    overflow-y: scroll; /* Scroll solo en la lista */
+    padding-right: 10px;
+}
+
+/* --- TARJETA DE RESULTADO DE BÚSQUEDA --- */
+.search-car-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.search-car-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-thumbnail {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.card-details {
+    flex-grow: 1;
+}
+
+.car-title {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.daily-price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #0ef;
+    display: block;
+}
+
+.reserve-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+
+/* --- COLUMNA DEL MAPA --- */
+.map-column {
+    flex: 1;
+    position: sticky;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+}
+
+#map-container iframe {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/*
+ * ----------------------------------------
+ * CONTROLES DIVIDIDOS (SORT Y FILTER)
+ * ----------------------------------------
+ */
+
+.controls-bar-split {
+    display: flex;
+    gap: 15px; /* Espacio entre el botón de Sort y el botón de Filter */
+    margin-bottom: 20px;
+    position: relative; /* Contenedor principal para posicionamiento de los paneles si fuera necesario */
+}
+
+.control-group {
+    position: relative; /* CLAVE: El panel se posiciona absoluto respecto a este grupo */
+    flex: 1; /* Distribuye el espacio entre los dos botones */
+}
+
+.toggle-control-btn {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: white; /* Estilo de botón de control */
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-control-btn:hover,
+.toggle-control-btn.active {
+    background-color: #f0f0f0;
+    border-color: #0ef; /* Destacar con color Thera al activarse/hover */
+}
+
+.toggle-control-btn .icon {
+    margin-right: 5px;
+}
+
+/*
+ * ----------------------------------------
+ * PANES DESPLEGABLES (Menús)
+ * ----------------------------------------
+ */
+
+.control-panel {
+    position: absolute; /* CLAVE: Se despliega sobre el contenido */
+    top: 100%; /* Justo debajo del botón */
+    left: 0;
+    width: 300px; /* Ancho fijo para el menú desplegable */
+    z-index: 20; /* Asegura que esté encima de las tarjetas */
+
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.control-panel.hidden {
+    display: none;
+}
+
+/* Estilos internos (Asegurar que el botón de Aplicar sea visible) */
+.apply-sort-btn, .apply-filters-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.apply-sort-btn:hover, .apply-filters-btn:hover {
+    background-color: #0ef;
+    color: black;
+}
+
+/* Ajustes menores al panel de Sort By */
+#sort-panel .sort-select {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* ----------------------------------------
+ * BARRA DE BÚSQUEDA COMPACTA EN HEADER
+ * ----------------------------------------
+ */
+.compact-search-form {
+    flex-grow: 1; /* Permite que la barra de búsqueda ocupe el espacio restante */
+    max-width: 650px; /* Limita el ancho para que no se extienda demasiado */
+    margin: 0 20px;
+    border: 1px solid #ddd; /* Borde alrededor de toda la forma */
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: none; /* Quitamos la sombra de la versión grande */
+}
+
+/* Estilo de los inputs dentro de la barra compacta */
+.compact-search-form .search-input {
+    padding: 10px 12px; /* Reducimos el padding para hacerlos más pequeños */
+    font-size: 0.9rem;
+    border: none; /* Quitamos los bordes internos */
+    border-right: 1px solid #eee; /* Separador sutil */
+}
+
+/* El último input no debe tener borde derecho */
+.compact-search-form .date-input:last-of-type {
+    border-right: none;
+}
+
+/* Ajustes de radio en la versión compacta */
+.compact-search-form .location-input {
+    border-radius: 0;
+}
+
+.compact-search-form .search-button {
+    padding: 10px 18px; /* Reducimos el padding del botón */
+    font-size: 0.9rem;
+    border-radius: 0; /* Quitamos el radio en el botón */
+}
