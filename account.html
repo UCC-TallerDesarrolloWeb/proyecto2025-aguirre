@@ -2,9 +2,90 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Thera | Tu Cuenta</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="utils.js"></script>
 </head>
 <body>
+
+<div class="auth-wrapper">
+
+    <a href="index.html" class="back-button">Regresar</a>
+
+    <div class="auth-container">
+
+        <!-- LOGO DE THERA (CON CLASES ADAPTADAS) -->
+        <div class="auth-logo">
+            <img src="images/black-logo.png" alt="Thera logo">
+        </div>
+
+        <!-- PESTAÑAS (LOGIN / REGISTRO) -->
+        <div class="auth-tab-header">
+            <button class="auth-tab-button active" id="tab-login" onclick="showPanel('login-panel')">Iniciar Sesión
+            </button>
+            <button class="auth-tab-button" id="tab-register" onclick="showPanel('register-panel')">Registrarse</button>
+        </div>
+
+        <!-- 1. FORMULARIO DE INICIO DE SESIÓN -->
+        <form id="login-panel" onsubmit="handleLogin(event)">
+            <div class="auth-form-group">
+                <label for="login-email">Correo Electrónico</label>
+                <input id="login-email" name="email" placeholder="tu.correo@ejemplo.com" required type="email">
+            </div>
+
+            <div class="auth-form-group">
+                <label for="login-password">Contraseña</label>
+                <input id="login-password" name="password" placeholder="••••••••" required type="password">
+            </div>
+
+            <!-- OPCIÓN: ¿OLVIDASTE TU CONTRASEÑA? -->
+            <div class="auth-forgot-password">
+                <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button class="auth-btn-submit" type="submit">
+                Ingresar a Thera
+            </button>
+
+            <p class="auth-message" id="login-message"></p>
+        </form>
+
+        <!-- 2. FORMULARIO DE REGISTRO (Inicialmente oculto) -->
+        <form class="hidden-form" id="register-panel" onsubmit="handleRegister(event)">
+            <div class="auth-form-group">
+                <label for="register-name">Nombre Completo</label>
+                <input id="register-name" name="name" placeholder="Juan Pérez" required type="text">
+            </div>
+
+            <div class="auth-form-group">
+                <label for="register-email">Correo Electrónico</label>
+                <input id="register-email" name="email" placeholder="tu.correo@ejemplo.com" required type="email">
+            </div>
+
+            <div class="auth-form-group">
+                <label for="register-password">Contraseña</label>
+                <input id="register-password" maxlength="20" minlength="6" name="password"
+                       placeholder="Mínimo 6 caracteres" required
+                       type="password">
+            </div>
+
+            <div class="auth-form-group">
+                <label for="register-confirm-password">Confirmar Contraseña</label>
+                <input id="register-confirm-password" maxlength="20" minlength="6" name="confirm-password"
+                       placeholder="Repite la contraseña" required
+                       type="password">
+            </div>
+
+            <button class="auth-btn-submit" type="submit">
+                Crear Cuenta Thera
+            </button>
+
+            <p class="auth-message" id="register-message"></p>
+        </form>
+
+    </div>
+</div>
+
 
 </body>
 </html>
