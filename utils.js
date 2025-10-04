@@ -370,7 +370,7 @@ function handleRegister(event) {
     // 3. Mostrar éxito y redirigir
     console.log('Registro exitoso:', email);
     messageElement.style.color = 'green';
-    messageElement.textContent = `✅ ¡Registro exitoso para ${name}! Redireccionando...`;
+    messageElement.textContent = `¡Registro exitoso para ${name}! Redireccionando...`;
 
     event.target.reset(); // Limpiar formulario
     setTimeout(() => showPanel('login-panel'), 2000);
@@ -396,7 +396,7 @@ function handleLogin(event) {
     // 1. Comprobar si existe la cuenta
     if (!user) {
         // Este es el mensaje que solicitaste si la cuenta no existe
-        messageElement.textContent = "❌ Error: No se encontró una cuenta con ese correo electrónico. Por favor, regístrese.";
+        messageElement.textContent = "Error: No se encontró una cuenta con ese correo electrónico. Por favor, regístrese.";
         return;
     }
 
@@ -404,11 +404,11 @@ function handleLogin(event) {
     if (user.password === password) {
         // Login Exitoso
         messageElement.style.color = 'green';
-        messageElement.textContent = `✅ ¡Bienvenido de vuelta, ${user.name}! Ingreso exitoso.`;
+        messageElement.textContent = `¡Bienvenido de vuelta, ${user.name}! Ingreso exitoso.`;
         // Aquí iría la redirección a la página principal
         // window.location.href = '/dashboard.html';
     } else {
         // Contraseña Incorrecta
-        messageElement.textContent = "❌ Error: Contraseña incorrecta.";
+        messageElement.textContent = "Error: Contraseña incorrecta.";
     }
 }
