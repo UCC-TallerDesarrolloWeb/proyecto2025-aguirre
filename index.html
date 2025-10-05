@@ -53,10 +53,16 @@
 <!-- Search Bar -->
 <section class="searchBar">
     <div class="searchBar-container">
-        <form class="search-form">
-            <input class="location-input" placeholder="Ciudad, Barrio o Aeropuerto" type="text">
-            <input class="date-input" id="searchBar_dateStart" placeholder="Fecha de Inicio" type="date" value="">
-            <input class="date-input" id="searchBar_dateEnd" placeholder="Fecha de Fin" type="date" value="">
+        <form class="search-form" action="car-search.html" method="GET">
+            <input type="text"
+                   class="location-input search-input"
+                   name="location"
+                   placeholder="Ciudad, Barrio o Aeropuerto"
+                   required>
+
+            <input type="date" class="date-input search-input" placeholder="Fecha de Inicio" id="searchBar_dateStart" value="">
+            <input type="date" class="date-input search-input" placeholder="Fecha de Fin" id="searchBar_dateEnd" value="">
+
             <button class="search-button" type="submit">Buscar</button>
         </form>
     </div>
@@ -67,84 +73,68 @@
     <h2>Autos populares para alquilar</h2>
     <div class="carOptionsCarousel-container">
         <div class="carCard">
-            <img alt="" class="card-image" src="">
+            <img alt="" class="card-image" src="images/Ford/Raptor%20(1).jpg">
             <div class="card-content">
-                <h3 class="card-title">Auto de prueba</h3>
-                <p class="card-details">Detalles</p>
-                <p class="card-price">$xxxxx</p>
-                <button class="reserve-button">Reservar</button>
+                <h3 class="card-title">Ford F-150 Raptor 2024</h3>
+                <p class="card-details">⭐ 4.8 (35 reviews)</p>
+                <p class="card-price">$25.000/Día</p>
             </div>
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="">
+            <img alt="" class="card-image" src="images/Jeep/Jeep%20Cherokee%20(1).jpg">
             <div class="card-content">
-                <h3 class="card-title">Auto de prueba</h3>
-                <p class="card-details">Detalles</p>
-                <p class="card-price">$xxxxx</p>
-                <button class="reserve-button">Reservar</button>
+                <h3 class="card-title">Jeep Cherokee 2020</h3>
+                <p class="card-details">⭐ 4.8 (20 reviews)</p>
+                <p class="card-price">$18.000/Día</p>
             </div>
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="">
+            <img alt="" class="card-image" src="images/Toyota/Yaris%20(1).jpg">
             <div class="card-content">
-                <h3 class="card-title">Auto de prueba</h3>
-                <p class="card-details">Detalles</p>
-                <p class="card-price">$xxxxx</p>
-                <button class="reserve-button">Reservar</button>
+                <h3 class="card-title">Toyota GR Yaris 2024</h3>
+                <p class="card-details">⭐ 4.7 (10 reviews)</p>
+                <p class="card-price">$12.500/Día</p>
             </div>
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="">
+            <img alt="" class="card-image" src="images/VW%20Taos/Taos%20(1).jpg">
             <div class="card-content">
-                <h3 class="card-title">Auto de prueba</h3>
-                <p class="card-details">Detalles</p>
-                <p class="card-price">$xxxxx</p>
-                <button class="reserve-button">Reservar</button>
+                <h3 class="card-title">VW Taos 2023</h3>
+                <p class="card-details">⭐ 4.5 (12 reviews)</p>
+                <p class="card-price">$11.500/Día</p>
             </div>
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="">
+            <img alt="" class="card-image" src="images/Audi/RS3%20(1).jpg">
             <div class="card-content">
-                <h3 class="card-title">Auto de prueba</h3>
-                <p class="card-details">Detalles</p>
-                <p class="card-price">$xxxxx</p>
-                <button class="reserve-button">Reservar</button>
+                <h3 class="card-title">Audi RS3 Sedan 2023</h3>
+                <p class="card-details">⭐ 4.5 (15 reviews)</p>
+                <p class="card-price">$18.000/Día</p>
             </div>
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="">
+            <img alt="" class="card-image" src="images/Fiat/Cronos%20(1).jpg">
             <div class="card-content">
-                <h3 class="card-title">Auto de prueba</h3>
-                <p class="card-details">Detalles</p>
-                <p class="card-price">$xxxxx</p>
-                <button class="reserve-button">Reservar</button>
+                <h3 class="card-title">Fiat Cronos 2022</h3>
+                <p class="card-details">⭐ 4.1 (50 reviews)</p>
+                <p class="card-price">$9.000/Día</p>
             </div>
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="">
+            <img alt="" class="card-image" src="images/Ford/Ecosport%20(1).jpg">
             <div class="card-content">
-                <h3 class="card-title">Auto de prueba</h3>
-                <p class="card-details">Detalles</p>
-                <p class="card-price">$xxxxx</p>
-                <button class="reserve-button">Reservar</button>
+                <h3 class="card-title">Ford Ecosport 2019</h3>
+                <p class="card-details">⭐ 4 (28 reviews)</p>
+                <p class="card-price">$10.000/Día</p>
             </div>
         </div>
 
-        <div class="carCard">
-            <img alt="" class="card-image" src="">
-            <div class="card-content">
-                <h3 class="card-title">Auto de prueba</h3>
-                <p class="card-details">Detalles</p>
-                <p class="card-price">$xxxxx</p>
-                <button class="reserve-button">Reservar</button>
-            </div>
-        </div>
     </div>
 
     <div>
@@ -170,12 +160,9 @@
                     justo</strong>.
                 </p>
 
-                <p>
-                    ¡Súmate a Thera y hagamos que los autos se muevan!
-                </p>
             </section>
 
-            <a class="seeMore-button" href="about-us.html">Conoce más sobre nosotros</a>
+            <a class="aboutUs-button" href="about-us.html">Conoce más sobre nosotros</a>
         </div>
 
         <div class="col-faq">
@@ -208,6 +195,17 @@
                         publicación antes de reservar.</p>
                 </div>
             </div>
+
+            <div class="faq-item">
+                <input class="faq-toggle" id="faq4" name="faq3" type="checkbox">
+                <label class="faq-question" for="faq4">¿Qué pasa si tengo que cancelar mi reserva?</label>
+                <div class="faq-answer">
+                    <p>Nuestra política de cancelación es muy flexible: puedes cancelar gratis hasta 48 horas antes de
+                        la
+                        hora de recogida. Si la cancelación se realiza después de ese plazo, podría aplicarse una
+                        penalización o retención de la tarifa.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -219,7 +217,7 @@
 
         <div class="joinUs-buttons">
             <button class="joinUsRent-button primary-button" type="button">¡Alquila tu auto y gana!</button>
-            <button class="joinUsRenting-button secondary-button" type="button">Alquilar un auto</button>
+            <a class="joinUsRenting-button secondary-button" href="car-search.html">Alquilar un auto</a>
         </div>
     </div>
 
@@ -231,7 +229,7 @@
         <div class="footer-container">
 
             <div class="footer-col brand-info">
-                <h3 class="footer-logo">T H E R A</h3>
+                <h3 class="footer-logo">THERA</h3>
                 <p class="tagline">La libertad de andar en auto sin tenerlo.</p>
                 <p class="copyright">© 2025 Thera. Todos los derechos reservados.</p>
             </div>

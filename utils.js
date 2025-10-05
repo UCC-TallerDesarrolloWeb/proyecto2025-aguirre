@@ -24,7 +24,7 @@ const vehiculos = [
         imageUrl: "images/VW%20Taos/Taos%20(1).jpg"
     },
     {
-        title: "Audi A3 Sedan",
+        title: "Audi RS3 Sedan 2023",
         type: "sedan",
         price: 18000,
         rating: 4.5,
@@ -32,20 +32,19 @@ const vehiculos = [
         distance: 5.2,
         location: "Palermo, CABA",
         specs: "Automático | 4 Asientos | Aire Acondicionado",
-        features: ["auto", "ac"],
-        imageUrl: ""
+        features: ["auto", "ac"], imageUrl: "images/Audi/RS3 (1).jpg"
     },
     {
-        title: "Renault Kwid 2021",
-        type: "hatchback",
-        price: 8500,
-        rating: 4.2,
+        title: "Ford F-150 Raptor",
+        type: "suv",
+        price: 25000,
+        rating: 4.8,
         reviews: 35,
         distance: 1.5,
         location: "Microcentro, CABA",
-        specs: "Manual | 4 Asientos | Aire Acondicionado",
-        features: ["ac"],
-        imageUrl: ""
+        specs: "Automático | 5 Asientos | Aire Acondicionado",
+        features: ["auto", "ac", "gps"],
+        imageUrl: "images/Ford/Raptor (1).jpg"
     },
     {
         title: "Fiat Cronos 2022",
@@ -56,8 +55,7 @@ const vehiculos = [
         distance: 3.5,
         location: "Almagro, CABA",
         specs: "Manual | 5 Asientos | Aire Acondicionado",
-        features: ["ac"],
-        imageUrl: ""
+        features: ["ac"], imageUrl: "images/Fiat/Cronos (1).jpg"
     },
 
     {
@@ -67,22 +65,21 @@ const vehiculos = [
         rating: 4.0,
         reviews: 28,
         distance: 7.8,
-        location: "Belgrano, CABA",
+        location: "Villa Urquiza, CABA",
         specs: "Manual | 5 Asientos | Aire Acondicionado",
-        features: ["ac"],
-        imageUrl: ""
+        features: ["ac"], imageUrl: "images/Ford/Ecosport (1).jpg"
     },
     {
-        title: "Toyota Yaris 2024",
+        title: "Toyota GR Yaris 2024",
         type: "hatchback",
         price: 12500,
         rating: 4.7,
         reviews: 10,
         distance: 1.1,
-        location: "Villa Urquiza, CABA",
-        specs: "Automático | 5 Asientos | Aire Acondicionado",
-        features: ["auto", "ac"],
-        imageUrl: ""
+        location: "Belgrano, CABA",
+        specs: "Manual | 2 Asientos | Aire Acondicionado",
+        features: ["ac"],
+        imageUrl: "images/Toyota/Yaris (1).jpg"
     }
 ];
 
@@ -143,9 +140,8 @@ const renderCars = (carList) => {
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Estado Actual de los Vehículos ---
-    // Esta variable contendrá el array filtrado actualmente visible.
     let filteredVehiclesState = [...vehiculos];
-    let currentSortValue = 'none'; // Almacena el último criterio de ordenamiento aplicado
+    let currentSortValue = 'none';
 
     // --- Referencias del DOM ---
     const toggleSortBtn = document.getElementById('toggleSort');
@@ -159,6 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPriceSpan = document.getElementById('current-price');
     const clearFiltersBtn = document.createElement('button');
     const resultsList = document.querySelector('.results-list');
+
+    // --- NUEVAS REFERENCIAS DE BÚSQUEDA EN NAV ---
+    const searchForm = document.querySelector('.compact-search-form');
+    const locationSearchInput = document.querySelector('.compact-search-form .location-input');
+    // ---------------------------------------------
 
 
     if (!filtersPanel || !sortPanel) return;
@@ -196,89 +197,128 @@ document.addEventListener('DOMContentLoaded', () => {
     const applySort = () => {
         currentSortValue = sortBySelect.value;
 
-        // CORRECCIÓN CLAVE: Creamos una copia del estado filtrado para ordenarla.
         let sortedVehicles = [...filteredVehiclesState];
-
         sortedVehicles = sortVehicles(sortedVehicles, currentSortValue);
 
         renderCars(sortedVehicles);
         sortPanel.classList.add('hidden');
     };
 
+    // --- NUEVA FUNCIÓN: INICIALIZAR BÚSQUEDA DESDE URL ---
+    /**
+     * Lee el parámetro 'location' de la URL al cargar la página.
+     * Si existe, lo inserta en el input y aplica el filtro.
+     */
+    const initializeSearchFromUrl = () => {
+        const params = new URLSearchParams(window.location.search);
+        const locationParam = params.get('location');
+
+        if (locationParam && locationSearchInput) {
+            // 1. Insertar el valor de la URL en el input
+            locationSearchInput.value = locationParam;
+
+            // 2. Aplicar los filtros inmediatamente
+            applyFilters();
+        } else {
+            // Si no hay parámetro, renderiza todos los vehículos
+            renderCars(vehiculos);
+        }
+    };
+
     // --- Lógica de Filtrado (Calcula el nuevo estado y luego ordena) ---
     const applyFilters = () => {
-        // 1. Obtener filtros de Tipo de Vehículo
+
+        // 1. OBTENER FILTRO DE UBICACIÓN (de la barra de navegación)
+        const searchLocationTerm = locationSearchInput.value.toLowerCase().trim();
+
+        // 2. Obtener filtros de Tipo de Vehículo
         const typeCheckboxes = filtersPanel.querySelectorAll('input[name="type"]:checked, input[name="hatchback"]:checked');
         const selectedTypes = Array.from(typeCheckboxes).map(cb => cb.value);
 
-        // 2. Obtener filtro de Precio Máximo
+        // 3. Obtener filtro de Precio Máximo
         const maxPrice = parseInt(priceRangeInput.value, 10);
 
-        // 3. Obtener filtros de Características
+        // 4. Obtener filtros de Características
         const featureCheckboxes = filtersPanel.querySelectorAll('input[name="feature"]:checked');
+        const requiredFeatures = Array.from(featureCheckboxes).map(cb => cb.value);
 
-        // Mapear el valor del checkbox ('auto') al valor del modelo ('auto')
-        const requiredFeatures = Array.from(featureCheckboxes).map(cb => {
-            return cb.value === 'auto' ? 'auto' : cb.value;
-        });
 
-        // 4. Aplicar los filtros al array ORIGINAL 'vehiculos'
+        // 5. Aplicar los filtros al array ORIGINAL 'vehiculos'
         const newlyFilteredVehicles = vehiculos.filter(car => {
-            // Filtro 1: Tipo de Vehículo
+
+            // FILTRO A: UBICACIÓN
+            if (searchLocationTerm.length > 0) {
+                // Comprueba si el término de búsqueda (insensible a mayúsculas) está incluido en la ubicación del auto
+                const locationMatch = car.location.toLowerCase().includes(searchLocationTerm);
+                if (!locationMatch) return false;
+            }
+
+            // FILTRO B: Tipo de Vehículo
             const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(car.type);
             if (!typeMatch) return false;
 
-            // Filtro 2: Precio Máximo
+            // FILTRO C: Precio Máximo
             const priceMatch = car.price <= maxPrice;
             if (!priceMatch) return false;
 
-            // Filtro 3: Características
+            // FILTRO D: Características
             const featuresMatch = requiredFeatures.every(feature => car.features.includes(feature));
             if (!featuresMatch) return false;
 
             return true;
         });
 
-        // 5. ACTUALIZAR EL ESTADO
+        // 6. ACTUALIZAR EL ESTADO
         filteredVehiclesState = newlyFilteredVehicles;
 
-        // 6. Aplicar el ÚLTIMO ordenamiento conocido al nuevo estado filtrado
+        // 7. Aplicar el ÚLTIMO ordenamiento conocido al nuevo estado filtrado
         let vehiclesToRender = [...filteredVehiclesState];
         if (currentSortValue !== 'none') {
             vehiclesToRender = sortVehicles(vehiclesToRender, currentSortValue);
         }
 
         renderCars(vehiclesToRender);
-        filtersPanel.classList.add('hidden');
-
+        // NO cerramos el panel de filtros si solo usamos la barra de búsqueda
     };
 
     // --- Lógica de Limpiar Filtros ---
     const clearFilters = () => {
-        // 1. Limpiar checkboxes
+        // 1. Limpiar input de Ubicación (CLAVE: nuevo)
+        locationSearchInput.value = '';
+
+        // 2. Limpiar checkboxes
         filtersPanel.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = false;
         });
 
-        // 2. Restablecer el rango de precio al máximo (y actualizar el texto)
+        // 3. Restablecer el rango de precio
         const maxVal = parseInt(priceRangeInput.max, 10);
         priceRangeInput.value = maxVal;
         currentPriceSpan.textContent = maxVal.toLocaleString('es-AR');
 
-        // 3. Resetear el estado de filtrado y ordenamiento
+        // 4. Resetear el estado de filtrado y ordenamiento
         filteredVehiclesState = [...vehiculos];
         currentSortValue = 'none';
 
-        // 4. Renderizar todos los vehículos originales
+        // 5. Renderizar todos los vehículos originales
         renderCars(vehiculos);
     };
 
     // ===============================================
-    // 5. ASIGNACIÓN DE EVENT LISTENERS
+    // 5. ASIGNACIÓN DE EVENT LISTENERS (Filtros, Orden y Búsqueda)
     // ===============================================
 
-    // Carga inicial: El estado y la vista iniciales son los vehículos originales.
-    renderCars(vehiculos);
+    // Carga inicial:
+    initializeSearchFromUrl();
+
+    // BÚSQUEDA POR UBICACIÓN (NUEVA IMPLEMENTACIÓN)
+    if (searchForm) {
+        // Prevenir el envío por defecto del formulario (que recarga la página)
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            applyFilters();
+        });
+    }
 
     // Desplegables (Toggle)
     toggleSortBtn.addEventListener('click', () => togglePanel(sortPanel));
@@ -308,11 +348,10 @@ document.addEventListener('DOMContentLoaded', () => {
     clearFiltersBtn.addEventListener('click', clearFilters);
 
     // ===============================================
-    // 6. ASIGNACIÓN DE EVENT LISTENER PARA BOTÓN RESERVAR (ALERTA) - ¡CORREGIDO!
+    // 6. ASIGNACIÓN DE EVENT LISTENER PARA BOTÓN RESERVAR (ALERTA)
     // ===============================================
 
-    if (resultsList) { // resultsList ahora está garantizado de existir.
-        // Usamos delegación de eventos en el contenedor principal
+    if (resultsList) {
         resultsList.addEventListener('click', (event) => {
             const reserveBtn = event.target.closest('.reserve-btn');
 
@@ -381,7 +420,7 @@ function handleRegister(event) {
     // 2. Crear y guardar el nuevo usuario
     storedUsers[email] = {
         name: name,
-        password: password // NOTA: En producción, nunca guardes contraseñas sin hashear
+        password: password
     };
     localStorage.setItem('theraUsers', JSON.stringify(storedUsers));
 
@@ -424,7 +463,6 @@ function handleLogin(event) {
         messageElement.style.color = 'green';
         messageElement.textContent = `¡Bienvenido de vuelta, ${user.name}! Ingreso exitoso.`;
         // Aquí iría la redirección a la página principal
-        // window.location.href = '/dashboard.html';
     } else {
         // Contraseña Incorrecta
         messageElement.textContent = "Error: Contraseña incorrecta.";
