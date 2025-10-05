@@ -1,4 +1,3 @@
-// 1. CONSTANTE DE VEHÍCULOS (Datos)
 const vehiculos = [
     {
         title: "Jeep Cherokee 2020",
@@ -60,7 +59,7 @@ const vehiculos = [
         features: ["ac"],
         imageUrl: ""
     },
-    
+
     {
         title: "Ford Ecosport 2019",
         type: "suv",
@@ -159,6 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const priceRangeInput = document.getElementById('price-range');
     const currentPriceSpan = document.getElementById('current-price');
     const clearFiltersBtn = document.createElement('button');
+    const resultsList = document.querySelector('.results-list');
+
 
     if (!filtersPanel || !sortPanel) return;
 
@@ -249,6 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         renderCars(vehiclesToRender);
         filtersPanel.classList.add('hidden');
+
     };
 
     // --- Lógica de Limpiar Filtros ---
@@ -304,6 +306,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     clearFiltersBtn.addEventListener('click', clearFilters);
+
+    // ===============================================
+    // 6. ASIGNACIÓN DE EVENT LISTENER PARA BOTÓN RESERVAR (ALERTA) - ¡CORREGIDO!
+    // ===============================================
+
+    if (resultsList) { // resultsList ahora está garantizado de existir.
+        // Usamos delegación de eventos en el contenedor principal
+        resultsList.addEventListener('click', (event) => {
+            const reserveBtn = event.target.closest('.reserve-btn');
+
+            if (reserveBtn) {
+                event.preventDefault();
+                alert("La función de Reserva se implementará pronto.");
+            }
+        });
+    }
 });
 
 // ===============================================================================================================

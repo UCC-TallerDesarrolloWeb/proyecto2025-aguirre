@@ -746,6 +746,10 @@ body {
     margin-top: 5px;
 }
 
+.reserve-btn:hover {
+    background-color: #0ef;
+    color: black;
+}
 
 /* --- COLUMNA DEL MAPA --- */
 .map-column {
@@ -770,8 +774,7 @@ body {
 
 /* ----------------------------------------
  * BARRA DE BÚSQUEDA COMPACTA EN HEADER
- * ----------------------------------------
- */
+ * ----------------------------------------*/
 .compact-search-form {
     flex-grow: 1; /* Permite que la barra de búsqueda ocupe el espacio restante */
     max-width: 650px; /* Limita el ancho para que no se extienda demasiado */
@@ -978,3 +981,5 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
+/*ABOUT US PAGE*/
