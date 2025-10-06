@@ -1,4 +1,4 @@
-// La matriz de vehículos (constante)
+// Constante: La matriz de vehículos
 const vehiculos = [
     {
         title: "Jeep Cherokee 2020",
@@ -84,7 +84,12 @@ const vehiculos = [
     }
 ];
 
-// 1. FUNCIÓN FLECHA: Genera el HTML de una tarjeta.
+/**
+ * Descripción: Genera la estructura HTML para una tarjeta de vehículo.
+ * @method createCarCardHTML
+ * @param {object} car - Objeto con los datos detallados del vehículo.
+ * @return {string} El fragmento HTML completo para la tarjeta del vehículo.
+ */
 const createCarCardHTML = (car) => {
     const dataFeatures = car.features.join(' ');
     const formatPrice = (price) => price.toLocaleString('es-AR');
@@ -118,7 +123,13 @@ const createCarCardHTML = (car) => {
     `;
 };
 
-// 2. FUNCIÓN FLECHA: Principal para cargar todos los vehículos
+/**
+ * Descripción: Renderiza la lista completa de vehículos dentro del contenedor '.results-list'.
+ * Si la lista está vacía, muestra un mensaje.
+ * @method renderCars
+ * @param {Array<object>} carList - Lista de objetos de vehículos a mostrar en la interfaz.
+ * @return {void}
+ */
 const renderCars = (carList) => {
     const resultsList = document.querySelector('.results-list');
     if (!resultsList) return;
@@ -135,14 +146,17 @@ const renderCars = (carList) => {
 };
 
 // =========================================================
-// 3. FUNCIÓN FLECHA: Lógica de la interfaz de Login/Registro
+// Lógica de la interfaz de Login/Registro (Llamadas desde HTML)
 // =========================================================
 
 /**
- * Función Flecha: Alterna la visibilidad entre el panel de Login y el de Registro.
- * @param {string} panelId - El ID del formulario a mostrar ('login-panel' o 'register-panel').
+ * Descripción: Alterna la visibilidad entre el panel de Login y el de Registro.
+ * También limpia los mensajes de estado de los formularios.
+ * @method showPanel
+ * @param {string} panelId - El ID del panel a mostrar ('login-panel' o 'register-panel').
+ * @return {void}
  */
-const showPanel = (panelId) => { // <-- ¡Corregida a Función Flecha!
+const showPanel = (panelId) => {
     const loginPanel = document.getElementById('login-panel');
     const registerPanel = document.getElementById('register-panel');
     const tabLogin = document.getElementById('tab-login');
@@ -165,10 +179,13 @@ const showPanel = (panelId) => { // <-- ¡Corregida a Función Flecha!
 
 
 /**
- * Función Flecha: Maneja el envío del formulario de Registro.
- * @param {Event} event - El evento de envío del formulario.
+ * Descripción: Maneja el envío del formulario de Registro, valida contraseñas,
+ * verifica existencia de usuario y guarda la información en localStorage.
+ * @method handleRegister
+ * @param {Event} event - El objeto de evento de envío del formulario (para prevenir el default).
+ * @return {void}
  */
-const handleRegister = (event) => { // <-- ¡Corregida a Función Flecha!
+const handleRegister = (event) => {
     event.preventDefault();
 
     const name = document.getElementById('register-name').value.trim();
@@ -201,16 +218,19 @@ const handleRegister = (event) => { // <-- ¡Corregida a Función Flecha!
     messageElement.style.color = 'green';
     messageElement.textContent = `¡Registro exitoso para ${name}! Redireccionando...`;
 
-    event.target.reset();
+    event.target.reset(); // Limpiar formulario (blanqueo de contenido)
     setTimeout(() => showPanel('login-panel'), 2000);
 };
 
 
 /**
- * Función Flecha: Maneja el envío del formulario de Inicio de Sesión.
- * @param {Event} event - El evento de envío del formulario.
+ * Descripción: Maneja el envío del formulario de Inicio de Sesión.
+ * Comprueba si la cuenta existe en localStorage y si la contraseña es correcta.
+ * @method handleLogin
+ * @param {Event} event - El objeto de evento de envío del formulario (para prevenir el default).
+ * @return {void}
  */
-const handleLogin = (event) => { // <-- ¡Corregida a Función Flecha!
+const handleLogin = (event) => {
     event.preventDefault();
 
     const email = document.getElementById('login-email').value.toLowerCase().trim();
@@ -234,7 +254,6 @@ const handleLogin = (event) => { // <-- ¡Corregida a Función Flecha!
         // Login Exitoso
         messageElement.style.color = 'green';
         messageElement.textContent = `¡Bienvenido de vuelta, ${user.name}! Ingreso exitoso.`;
-        // Aquí iría la redirección a la página principal
     } else {
         // Contraseña Incorrecta
         messageElement.textContent = "Error: Contraseña incorrecta.";
@@ -243,16 +262,22 @@ const handleLogin = (event) => { // <-- ¡Corregida a Función Flecha!
 
 
 // =========================================================
-// 4. FUNCIÓN FLECHA: Lógica de Búsqueda y Filtros
-// (El resto del código se mueve dentro de DOMContentLoaded para mejor manejo de variables locales)
+// Lógica de Búsqueda, Filtros y Orden (Ejecutada al cargar el DOM)
 // =========================================================
 
+/**
+ * Descripción: Inicializa el script cuando el documento HTML ha sido completamente cargado
+ * y define toda la lógica de filtros, ordenamiento y carga inicial de la página.
+ * @method anonymous
+ * @return {void}
+ */
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Variables de Estado y Referencias del DOM ---
     let filteredVehiclesState = [...vehiculos];
     let currentSortValue = 'none';
 
+    // ... (Definiciones de constantes DOM)
     const toggleSortBtn = document.getElementById('toggleSort');
     const sortPanel = document.getElementById('sort-panel');
     const toggleFiltersBtn = document.getElementById('toggleFilters');
@@ -266,9 +291,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsList = document.querySelector('.results-list');
     const searchForm = document.querySelector('.compact-search-form');
     const locationSearchInput = document.querySelector('.compact-search-form .location-input');
+    // ...
 
+    // Si no estamos en car-search.html, solo inicializa la vista de account.html si existe
     if (!filtersPanel || !sortPanel) {
-        // Si no estamos en car-search.html, solo inicializa la vista de account.html si existe
         if (document.getElementById('login-panel')) {
             showPanel('login-panel');
         }
@@ -276,7 +302,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Función Flecha: Alterna la visibilidad de los paneles de filtro/ordenamiento.
+     * Descripción: Alterna la clase 'hidden' para mostrar u ocultar un panel.
+     * Cierra el panel opuesto si estuviera abierto.
+     * @method togglePanel
+     * @param {HTMLElement} panel - El panel DOM (filters-panel o sort-panel) a alternar.
+     * @return {void}
      */
     const togglePanel = (panel) => {
         const otherPanel = (panel === sortPanel) ? filtersPanel : sortPanel;
@@ -287,7 +317,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /**
-     * Función Flecha: Aplica el ordenamiento al array de vehículos proporcionado.
+     * Descripción: Aplica el ordenamiento al array de vehículos proporcionado según el valor de ordenamiento.
+     * @method sortVehicles
+     * @param {Array<object>} carList - Array de vehículos a ordenar.
+     * @param {string} sortValue - El criterio de ordenamiento ('price-asc', 'price-desc', 'rating', 'distance').
+     * @return {Array<object>} La lista de vehículos ordenada.
      */
     const sortVehicles = (carList, sortValue) => {
         return carList.sort((a, b) => {
@@ -304,20 +338,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- Lógica de Ordenamiento ---
+    /**
+     * Descripción: Aplica el ordenamiento seleccionado al estado actual de vehículos filtrados y renderiza la lista.
+     * @method applySort
+     * @return {void}
+     */
     const applySort = () => {
         currentSortValue = sortBySelect.value;
-
         let sortedVehicles = [...filteredVehiclesState];
         sortedVehicles = sortVehicles(sortedVehicles, currentSortValue);
-
         renderCars(sortedVehicles);
         sortPanel.classList.add('hidden');
     };
 
-    // --- FUNCIÓN FLECHA: CALCULO/MUESTRA (updatePriceDisplay) ---
     /**
-     * Cumple con el requisito de JS de cálculo/mostrar en base a un input.
+     * Descripción: Actualiza el texto junto al slider de precio con el valor actual del input.
+     * Cumple con el requisito de cálculo/muestra de un input.
+     * @method updatePriceDisplay
+     * @return {void}
      */
     const updatePriceDisplay = () => {
         if (priceRangeInput && currentPriceSpan) {
@@ -327,7 +365,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    // --- Inicializar Búsqueda Desde URL ---
+    /**
+     * Descripción: Lee el parámetro 'location' de la URL al cargar la página.
+     * Si existe, lo inserta en el input de búsqueda y aplica los filtros iniciales.
+     * @method initializeSearchFromUrl
+     * @return {void}
+     */
     const initializeSearchFromUrl = () => {
         const params = new URLSearchParams(window.location.search);
         const locationParam = params.get('location');
@@ -340,7 +383,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- Lógica de Filtrado ---
+    /**
+     * Descripción: Recoge todos los filtros del DOM (ubicación, tipo, precio, características)
+     * los aplica al array original de vehículos, actualiza el estado y vuelve a renderizar la lista.
+     * @method applyFilters
+     * @return {void}
+     */
     const applyFilters = () => {
         const searchLocationTerm = locationSearchInput.value.toLowerCase().trim();
         const typeCheckboxes = filtersPanel.querySelectorAll('input[name="type"]:checked, input[name="hatchback"]:checked');
@@ -350,25 +398,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const requiredFeatures = Array.from(featureCheckboxes).map(cb => cb.value);
 
         const newlyFilteredVehicles = vehiculos.filter(car => {
-
-            // FILTRO A: UBICACIÓN
-            if (searchLocationTerm.length > 0) {
-                const locationMatch = car.location.toLowerCase().includes(searchLocationTerm);
-                if (!locationMatch) return false;
-            }
-
-            // FILTRO B: Tipo de Vehículo
+            // Lógica de Filtrado...
+            if (searchLocationTerm.length > 0 && !car.location.toLowerCase().includes(searchLocationTerm)) return false;
             const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(car.type);
             if (!typeMatch) return false;
-
-            // FILTRO C: Precio Máximo
-            const priceMatch = car.price <= maxPrice;
-            if (!priceMatch) return false;
-
-            // FILTRO D: Características
+            if (car.price > maxPrice) return false;
             const featuresMatch = requiredFeatures.every(feature => car.features.includes(feature));
             if (!featuresMatch) return false;
-
             return true;
         });
 
@@ -382,7 +418,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCars(vehiclesToRender);
     };
 
-    // --- Lógica de Limpiar Filtros ---
+    /**
+     * Descripción: Restablece todos los filtros (input de ubicación, checkboxes, slider de precio)
+     * y vuelve a renderizar el array completo de vehículos.
+     * @method clearFilters
+     * @return {void}
+     */
     const clearFilters = () => {
         locationSearchInput.value = '';
 
@@ -392,7 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const maxVal = parseInt(priceRangeInput.max, 10);
         priceRangeInput.value = maxVal;
-        updatePriceDisplay(); // Usa la función de flecha para actualizar el display
+        updatePriceDisplay(); // Actualiza el display del precio
 
         filteredVehiclesState = [...vehiculos];
         currentSortValue = 'none';
@@ -402,16 +443,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ===============================================
-    // 5. ASIGNACIÓN DE EVENT LISTENERS
+    // ASIGNACIÓN DE EVENT LISTENERS
     // ===============================================
 
-    // Carga inicial y lógica de filtros
     initializeSearchFromUrl();
 
     // Asignación de la función de cálculo/muestra al input de rango
-    updatePriceDisplay(); // Muestra el valor inicial
-    priceRangeInput.addEventListener('input', updatePriceDisplay); // Actualiza al arrastrar
-
+    updatePriceDisplay();
+    priceRangeInput.addEventListener('input', updatePriceDisplay);
 
     // BÚSQUEDA POR UBICACIÓN
     if (searchForm) {
