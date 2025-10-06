@@ -1,6 +1,68 @@
 # proyecto2025
 Estructura de Proyecto Taller de Desarrollo Web - 2025
 
+THERA: La Plataforma de Carsharing en Argentina
+El proyecto de Taller de Desarrollo Web 2025: Conectando usuarios y vehículos.
+
+Índice del Proyecto
+Descripción General
+
+Autores
+
+Acceso al Proyecto
+
+Tecnologías Utilizadas
+
+Estructura y Contenido de la Página
+
+1. Descripción General
+   THERA es una plataforma de carsharing (alquiler de vehículos entre particulares) diseñada para el mercado argentino. El objetivo principal es ofrecer una solución de movilidad flexible para quienes necesitan alquilar un auto por días, a la vez que permite a los propietarios obtener ingresos de su vehículo cuando no lo están utilizando.
+
+Características Clave
+Búsqueda Avanzada: Permite filtrar vehículos por ubicación, tipo, precio máximo y características (automático, A/C).
+
+Gestión de Cuentas: Funcionalidad de Registro e Inicio de Sesión con persistencia básica de datos de usuario a través de localStorage.
+
+Código Limpio: Todas las funciones de JavaScript han sido convertidas a Funciones Flecha y documentadas con el formato JsDoc.
+
+2. Autores
+   Tomás Aguirre - 2315421
+
+Exportar a Hojas de cálculo
+3. Acceso al Proyecto
+   Puedes acceder a la versión desplegada del proyecto a través de GitHub Pages en el siguiente enlace:
+
+Link de GitHub Pages: Proyecto THERA en GitHub Pages
+(Reemplaza el placeholder con la URL de tu proyecto desplegado)
+
+4. Tecnologías Utilizadas
+   Este proyecto fue construido utilizando tecnologías fundamentales del desarrollo web:
+
+HTML5: Estructura semántica y metadatos (<meta>) en todas las páginas.
+
+CSS3: Estilos completos, uso de Flexbox y Grid. Se realizó una corrección eliminando directivas !important innecesarias.
+
+JavaScript (ES6): Lógica de filtros, ordenamiento, carousels, validación de formularios y almacenamiento de usuarios en localStorage. Todas las funciones son funciones flecha y están documentadas con JsDoc.
+
+5. Estructura y Contenido de la Página
+   El sitio web se compone de 5 vistas principales:
+
+index.html (Inicio)
+Contiene una Hero Section con video de fondo, un formulario de búsqueda para el alquiler de vehículos y secciones de promoción detallando los beneficios del carsharing.
+
+car-search.html (Búsqueda)
+Muestra la lista de vehículos disponibles con sus detalles. Incluye paneles desplegables para:
+
+Filtros: Por tipo de vehículo, precio (con input de rango y cálculo JS) y características.
+
+Ordenamiento: Por precio, valoración (rating) y distancia.
+
+account.html (Cuenta)
+Implementa la funcionalidad de Login y Registro con un sistema de pestañas para alternar entre formularios. Los datos de usuario se gestionan con localStorage.
+
+about-us.html y faq.html (Soporte)
+Páginas informativas que contienen la misión/visión de Thera y un listado de Preguntas Frecuentes con funcionalidad de acordeón.
+
 ## Requisitos del Primer Parcial
 
 ### Sobre el Sketch
