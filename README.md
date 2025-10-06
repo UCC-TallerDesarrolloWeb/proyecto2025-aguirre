@@ -1,9 +1,9 @@
 # proyecto2025
 Estructura de Proyecto Taller de Desarrollo Web - 2025
 
-# 🚗 **THERA: La Plataforma de Carsharing en Argentina**
+# **THERA: La Plataforma de Carsharing en Argentina**
 
-> *El proyecto de Taller de Desarrollo Web 2025: Conectando usuarios y vehículos.*
+> *Proyecto de Taller de Desarrollo Web 2025*
 
 ---
 
@@ -36,10 +36,9 @@ auto por días, a la vez que permite a los propietarios obtener ingresos de su v
 
 ## 2. Autores
 
-| Rol                     | Nombre y Apellido            |
-|:------------------------|:-----------------------------|
-| Desarrollador Principal | **[Tu Nombre y Apellido]**   |
-| Colaborador             | **[Nombre del Colaborador]** |
+| Rol              | Nombre y Apellido |
+|:-----------------|:------------------|
+| Desarrollador    | Tomás Aguirre     |
 
 ---
 
@@ -47,8 +46,7 @@ auto por días, a la vez que permite a los propietarios obtener ingresos de su v
 
 Puedes acceder a la versión desplegada del proyecto a través de GitHub Pages en el siguiente enlace:
 
-* **Link de GitHub Pages:** [Proyecto THERA](https://[usuario-github].github.io/Proyecto2025-Nombre-Apellido/)
-  *(Recuerda reemplazar el placeholder con la URL de tu proyecto desplegado)*
+* **Link de GitHub Pages:** [Proyecto THERA](https://ucc-tallerdesarrolloweb.github.io/proyecto2025-aguirre/)
 
 ---
 
