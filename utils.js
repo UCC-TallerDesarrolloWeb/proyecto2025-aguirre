@@ -9,7 +9,7 @@ const vehiculos = [
         location: "Palermo, CABA",
         specs: "Automático | 5 Asientos | Aire Acondicionado",
         features: ["auto", "ac"],
-        imageUrl: "images/Jeep/Jeep%20Cherokee%20(1).jpg"
+        imageUrl: "Imagenes/Jeep/Jeep%20Cherokee%20(1).jpg"
     },
     {
         title: "VW Taos 2023",
@@ -21,7 +21,7 @@ const vehiculos = [
         location: "Villa Crespo, CABA",
         specs: "Automático | 5 Asientos | GPS",
         features: ["auto", "gps"],
-        imageUrl: "images/VW%20Taos/Taos%20(1).jpg"
+        imageUrl: "Imagenes/VW%20Taos/Taos%20(1).jpg"
     },
     {
         title: "Audi RS3 Sedan 2023",
@@ -32,7 +32,7 @@ const vehiculos = [
         distance: 5.2,
         location: "Palermo, CABA",
         specs: "Automático | 4 Asientos | Aire Acondicionado",
-        features: ["auto", "ac"], imageUrl: "images/Audi/RS3 (1).jpg"
+        features: ["auto", "ac"], imageUrl: "Imagenes/Audi/RS3 (1).jpg"
     },
     {
         title: "Ford F-150 Raptor",
@@ -44,7 +44,7 @@ const vehiculos = [
         location: "Microcentro, CABA",
         specs: "Automático | 5 Asientos | Aire Acondicionado",
         features: ["auto", "ac", "gps"],
-        imageUrl: "images/Ford/Raptor (1).jpg"
+        imageUrl: "Imagenes/Ford/Raptor (1).jpg"
     },
     {
         title: "Fiat Cronos 2022",
@@ -55,7 +55,7 @@ const vehiculos = [
         distance: 3.5,
         location: "Almagro, CABA",
         specs: "Manual | 5 Asientos | Aire Acondicionado",
-        features: ["ac"], imageUrl: "images/Fiat/Cronos (1).jpg"
+        features: ["ac"], imageUrl: "Imagenes/Fiat/Cronos (1).jpg"
     },
 
     {
@@ -67,7 +67,7 @@ const vehiculos = [
         distance: 7.8,
         location: "Villa Urquiza, CABA",
         specs: "Manual | 5 Asientos | Aire Acondicionado",
-        features: ["ac"], imageUrl: "images/Ford/Ecosport (1).jpg"
+        features: ["ac"], imageUrl: "Imagenes/Ford/Ecosport (1).jpg"
     },
     {
         title: "Toyota GR Yaris 2024",
@@ -79,7 +79,7 @@ const vehiculos = [
         location: "Belgrano, CABA",
         specs: "Manual | 2 Asientos | Aire Acondicionado",
         features: ["ac"],
-        imageUrl: "images/Toyota/Yaris (1).jpg"
+        imageUrl: "Imagenes/Toyota/Yaris (1).jpg"
     }
 ];
 
@@ -102,7 +102,7 @@ const createCarCardHTML = (car) => {
              data-price="${car.price}"
              data-rating="${car.rating}"
              data-type="${car.type}">
-            <img alt="Miniatura del auto: ${car.title}" class="card-thumbnail" src="${car.imageUrl || 'images/default-car.jpg'}">
+            <img alt="Miniatura del auto: ${car.title}" class="card-thumbnail" src="${car.imageUrl || 'Imagenes/default-car.jpg'}">
             <div class="card-details">
                 <h3 class="car-title">${car.title}</h3>
                 <p class="car-specs">${getSpecsHTML(car.specs)}</p>

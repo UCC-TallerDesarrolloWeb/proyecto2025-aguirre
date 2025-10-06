@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta about="Autor: Tomas Aguirre Descripción: Thera | Alquiler de vehicular entre personas Palabras Clave: Alquiler, Vehiculo, Autos, Personas">
+    <meta about="Autor: Tomas Aguirre Descripción: Thera | Alquiler de vehículos entre personas Palabras Clave: Alquiler, Vehiculo, Autos, Personas">
     <title>Thera | La plataforma de alquiler de vehículos entre personas</title>
     <link href="styles.css" rel="stylesheet">
-    <script src="functions.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display&display=swap" rel="stylesheet">
+    <link href="Imagenes/favicon.png" rel="icon" type="image/png">
+    <script src="functions.js"></script>
+
 </head>
 <body>
 
 <!-- Video Opener -->
-<section class="hero">
+<header id="header">
+    <section class="hero">
     <div class="video-container">
         <iframe
                 allow="autoplay"
@@ -27,14 +30,15 @@
 
     <!-- Title Img Logo -->
     <div class="logo-container">
-        <img alt="White Thera Logo" class="heroLogo" src="images/white-logo.png">
+        <img alt="White Thera Logo" class="heroLogo" src="Imagenes/white-logo.png">
     </div>
-</section>
+    </section>
+</header>
 
 <!-- Navigation Bar -->
 <nav id="navigationBar">
     <div class="nav-logo">
-        <img alt="Offset Thera Logo" class="navLogo-img" src="images/offset-logo.png">
+        <img alt="Offset Thera Logo" class="navLogo-img" src="Imagenes/offset-logo.png">
     </div>
     <ul>
         <li><a href="index.html">Inicio</a></li>
@@ -61,6 +65,7 @@
                    class="location-input search-input"
                    name="location"
                    placeholder="Ciudad, Barrio o Aeropuerto"
+                   maxlength="100"
                    required>
 
             <input type="date" class="date-input search-input" placeholder="Fecha de Inicio" id="searchBar_dateStart" value="">
@@ -76,7 +81,7 @@
     <h2>Autos populares para alquilar</h2>
     <div class="carOptionsCarousel-container">
         <div class="carCard">
-            <img alt="" class="card-image" src="images/Ford/Raptor%20(1).jpg">
+            <img alt="Miniatura F-150 Raptor" class="card-image" src="Imagenes/Ford/Raptor%20(1).jpg">
             <div class="card-content">
                 <h3 class="card-title">Ford F-150 Raptor 2024</h3>
                 <p class="card-details">⭐ 4.8 (35 reviews)</p>
@@ -85,7 +90,7 @@
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="images/Jeep/Jeep%20Cherokee%20(1).jpg">
+            <img alt="Miniatura Jeep Cherokee" class="card-image" src="Imagenes/Jeep/Jeep%20Cherokee%20(1).jpg">
             <div class="card-content">
                 <h3 class="card-title">Jeep Cherokee 2020</h3>
                 <p class="card-details">⭐ 4.8 (20 reviews)</p>
@@ -94,7 +99,7 @@
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="images/Toyota/Yaris%20(1).jpg">
+            <img alt="Miniatura Toyota GR Yaris" class="card-image" src="Imagenes/Toyota/Yaris%20(1).jpg">
             <div class="card-content">
                 <h3 class="card-title">Toyota GR Yaris 2024</h3>
                 <p class="card-details">⭐ 4.7 (10 reviews)</p>
@@ -103,7 +108,7 @@
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="images/VW%20Taos/Taos%20(1).jpg">
+            <img alt="Miniatura VW Taos" class="card-image" src="Imagenes/VW%20Taos/Taos%20(1).jpg">
             <div class="card-content">
                 <h3 class="card-title">VW Taos 2023</h3>
                 <p class="card-details">⭐ 4.5 (12 reviews)</p>
@@ -112,7 +117,7 @@
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="images/Audi/RS3%20(1).jpg">
+            <img alt="Miniatura Audi RS3" class="card-image" src="Imagenes/Audi/RS3%20(1).jpg">
             <div class="card-content">
                 <h3 class="card-title">Audi RS3 Sedan 2023</h3>
                 <p class="card-details">⭐ 4.5 (15 reviews)</p>
@@ -121,7 +126,7 @@
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="images/Fiat/Cronos%20(1).jpg">
+            <img alt="Miniatura Fiat Cronos" class="card-image" src="Imagenes/Fiat/Cronos%20(1).jpg">
             <div class="card-content">
                 <h3 class="card-title">Fiat Cronos 2022</h3>
                 <p class="card-details">⭐ 4.1 (50 reviews)</p>
@@ -130,7 +135,7 @@
         </div>
 
         <div class="carCard">
-            <img alt="" class="card-image" src="images/Ford/Ecosport%20(1).jpg">
+            <img alt="Miniatura Ford Ecosport" class="card-image" src="Imagenes/Ford/Ecosport%20(1).jpg">
             <div class="card-content">
                 <h3 class="card-title">Ford Ecosport 2019</h3>
                 <p class="card-details">⭐ 4 (28 reviews)</p>

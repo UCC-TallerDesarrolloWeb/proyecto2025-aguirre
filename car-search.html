@@ -2,18 +2,20 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta about="Autor: Tomas Aguirre Descripción: Thera | Alquiler de vehículos entre personas Palabras Clave: Alquiler, Vehiculo, Autos, Personas">
     <title>Thera | Busca y alquila un auto!</title>
     <link href="styles.css" rel="stylesheet">
-    <script src="utils.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display&display=swap" rel="stylesheet">
+    <link href="Imagenes/favicon.png" rel="icon" type="image/png">
+    <script src="utils.js"></script>
 </head>
 <body>
-
-<nav id="navigationBar">
+<header>
+    <nav id="navigationBar">
     <div class="nav-logo">
-        <img alt="Offset Thera Logo" class="navLogo-img" src="images/offset-logo.png">
+        <img alt="Offset Thera Logo" class="navLogo-img" src="Imagenes/offset-logo.png">
     </div>
 
     <form class="search-form compact-search-form">
@@ -22,7 +24,7 @@
             <input autocomplete="off"
                    class="location-input search-input" id="location-search-input"
                    placeholder="Ciudad, Barrio o Aeropuerto"
-                   type="text">
+                   maxlength="100" type="text">
             <div class="autocomplete-items" id="autocomplete-list"></div>
         </div>
 
@@ -37,7 +39,9 @@
         <li><a href="faq.html">Preguntas Frecuentes</a></li>
         <li><a href="account.html">Cuenta</a></li>
     </ul>
-</nav>
+    </nav>
+</header>
+
 
 <main class="search-results-page">
 
