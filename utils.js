@@ -1,3 +1,4 @@
+// La matriz de vehículos (constante)
 const vehiculos = [
     {
         title: "Jeep Cherokee 2020",
@@ -83,7 +84,7 @@ const vehiculos = [
     }
 ];
 
-// 2. FUNCIÓN PARA GENERAR EL HTML DE UNA TARJETA
+// 1. FUNCIÓN FLECHA: Genera el HTML de una tarjeta.
 const createCarCardHTML = (car) => {
     const dataFeatures = car.features.join(' ');
     const formatPrice = (price) => price.toLocaleString('es-AR');
@@ -117,7 +118,7 @@ const createCarCardHTML = (car) => {
     `;
 };
 
-// 3. FUNCIÓN PRINCIPAL PARA CARGAR TODOS LOS VEHÍCULOS
+// 2. FUNCIÓN FLECHA: Principal para cargar todos los vehículos
 const renderCars = (carList) => {
     const resultsList = document.querySelector('.results-list');
     if (!resultsList) return;
@@ -133,267 +134,41 @@ const renderCars = (carList) => {
     resultsList.innerHTML = allCarsHTML;
 };
 
-// ===============================================
-// 4. LÓGICA DE CONTROL (Dentro de DOMContentLoaded)
-// ===============================================
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // --- Estado Actual de los Vehículos ---
-    let filteredVehiclesState = [...vehiculos];
-    let currentSortValue = 'none';
-
-    // --- Referencias del DOM ---
-    const toggleSortBtn = document.getElementById('toggleSort');
-    const sortPanel = document.getElementById('sort-panel');
-    const toggleFiltersBtn = document.getElementById('toggleFilters');
-    const filtersPanel = document.getElementById('filters-panel');
-    const applySortBtn = document.querySelector('.apply-sort-btn');
-    const sortBySelect = document.getElementById('sort-by');
-    const applyFiltersBtn = document.querySelector('.apply-filters-btn');
-    const priceRangeInput = document.getElementById('price-range');
-    const currentPriceSpan = document.getElementById('current-price');
-    const clearFiltersBtn = document.createElement('button');
-    const resultsList = document.querySelector('.results-list');
-
-    // --- NUEVAS REFERENCIAS DE BÚSQUEDA EN NAV ---
-    const searchForm = document.querySelector('.compact-search-form');
-    const locationSearchInput = document.querySelector('.compact-search-form .location-input');
-    // ---------------------------------------------
-
-
-    if (!filtersPanel || !sortPanel) return;
-
-    /**
-     * Alterna la visibilidad de los paneles de filtro/ordenamiento.
-     */
-    const togglePanel = (panel) => {
-        const otherPanel = (panel === sortPanel) ? filtersPanel : sortPanel;
-        if (!otherPanel.classList.contains('hidden')) {
-            otherPanel.classList.add('hidden');
-        }
-        panel.classList.toggle('hidden');
-    };
-
-    /**
-     * Función que aplica el ordenamiento al array de vehículos proporcionado.
-     */
-    const sortVehicles = (carList, sortValue) => {
-        return carList.sort((a, b) => {
-            if (sortValue === 'price-asc') {
-                return a.price - b.price;
-            } else if (sortValue === 'price-desc') {
-                return b.price - a.price;
-            } else if (sortValue === 'rating') {
-                return b.rating - a.rating;
-            } else if (sortValue === 'distance') {
-                return a.distance - b.distance;
-            }
-            return 0;
-        });
-    };
-
-    // --- Lógica de Ordenamiento (Solo reordena el estado actual) ---
-    const applySort = () => {
-        currentSortValue = sortBySelect.value;
-
-        let sortedVehicles = [...filteredVehiclesState];
-        sortedVehicles = sortVehicles(sortedVehicles, currentSortValue);
-
-        renderCars(sortedVehicles);
-        sortPanel.classList.add('hidden');
-    };
-
-    // --- NUEVA FUNCIÓN: INICIALIZAR BÚSQUEDA DESDE URL ---
-    /**
-     * Lee el parámetro 'location' de la URL al cargar la página.
-     * Si existe, lo inserta en el input y aplica el filtro.
-     */
-    const initializeSearchFromUrl = () => {
-        const params = new URLSearchParams(window.location.search);
-        const locationParam = params.get('location');
-
-        if (locationParam && locationSearchInput) {
-            // 1. Insertar el valor de la URL en el input
-            locationSearchInput.value = locationParam;
-
-            // 2. Aplicar los filtros inmediatamente
-            applyFilters();
-        } else {
-            // Si no hay parámetro, renderiza todos los vehículos
-            renderCars(vehiculos);
-        }
-    };
-
-    // --- Lógica de Filtrado (Calcula el nuevo estado y luego ordena) ---
-    const applyFilters = () => {
-
-        // 1. OBTENER FILTRO DE UBICACIÓN (de la barra de navegación)
-        const searchLocationTerm = locationSearchInput.value.toLowerCase().trim();
-
-        // 2. Obtener filtros de Tipo de Vehículo
-        const typeCheckboxes = filtersPanel.querySelectorAll('input[name="type"]:checked, input[name="hatchback"]:checked');
-        const selectedTypes = Array.from(typeCheckboxes).map(cb => cb.value);
-
-        // 3. Obtener filtro de Precio Máximo
-        const maxPrice = parseInt(priceRangeInput.value, 10);
-
-        // 4. Obtener filtros de Características
-        const featureCheckboxes = filtersPanel.querySelectorAll('input[name="feature"]:checked');
-        const requiredFeatures = Array.from(featureCheckboxes).map(cb => cb.value);
-
-
-        // 5. Aplicar los filtros al array ORIGINAL 'vehiculos'
-        const newlyFilteredVehicles = vehiculos.filter(car => {
-
-            // FILTRO A: UBICACIÓN
-            if (searchLocationTerm.length > 0) {
-                // Comprueba si el término de búsqueda (insensible a mayúsculas) está incluido en la ubicación del auto
-                const locationMatch = car.location.toLowerCase().includes(searchLocationTerm);
-                if (!locationMatch) return false;
-            }
-
-            // FILTRO B: Tipo de Vehículo
-            const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(car.type);
-            if (!typeMatch) return false;
-
-            // FILTRO C: Precio Máximo
-            const priceMatch = car.price <= maxPrice;
-            if (!priceMatch) return false;
-
-            // FILTRO D: Características
-            const featuresMatch = requiredFeatures.every(feature => car.features.includes(feature));
-            if (!featuresMatch) return false;
-
-            return true;
-        });
-
-        // 6. ACTUALIZAR EL ESTADO
-        filteredVehiclesState = newlyFilteredVehicles;
-
-        // 7. Aplicar el ÚLTIMO ordenamiento conocido al nuevo estado filtrado
-        let vehiclesToRender = [...filteredVehiclesState];
-        if (currentSortValue !== 'none') {
-            vehiclesToRender = sortVehicles(vehiclesToRender, currentSortValue);
-        }
-
-        renderCars(vehiclesToRender);
-        // NO cerramos el panel de filtros si solo usamos la barra de búsqueda
-    };
-
-    // --- Lógica de Limpiar Filtros ---
-    const clearFilters = () => {
-        // 1. Limpiar input de Ubicación (CLAVE: nuevo)
-        locationSearchInput.value = '';
-
-        // 2. Limpiar checkboxes
-        filtersPanel.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            checkbox.checked = false;
-        });
-
-        // 3. Restablecer el rango de precio
-        const maxVal = parseInt(priceRangeInput.max, 10);
-        priceRangeInput.value = maxVal;
-        currentPriceSpan.textContent = maxVal.toLocaleString('es-AR');
-
-        // 4. Resetear el estado de filtrado y ordenamiento
-        filteredVehiclesState = [...vehiculos];
-        currentSortValue = 'none';
-
-        // 5. Renderizar todos los vehículos originales
-        renderCars(vehiculos);
-    };
-
-    // ===============================================
-    // 5. ASIGNACIÓN DE EVENT LISTENERS (Filtros, Orden y Búsqueda)
-    // ===============================================
-
-    // Carga inicial:
-    initializeSearchFromUrl();
-
-    // BÚSQUEDA POR UBICACIÓN (NUEVA IMPLEMENTACIÓN)
-    if (searchForm) {
-        // Prevenir el envío por defecto del formulario (que recarga la página)
-        searchForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            applyFilters();
-        });
-    }
-
-    // Desplegables (Toggle)
-    toggleSortBtn.addEventListener('click', () => togglePanel(sortPanel));
-    toggleFiltersBtn.addEventListener('click', () => togglePanel(filtersPanel));
-
-    // Aplicar
-    applySortBtn.addEventListener('click', applySort);
-    applyFiltersBtn.addEventListener('click', applyFilters);
-
-    // Rango de precio (input en vivo)
-    priceRangeInput.addEventListener('input', (e) => {
-        const value = parseInt(e.target.value, 10);
-        currentPriceSpan.textContent = value.toLocaleString('es-AR');
-    });
-
-    // Botón de Limpiar Filtros (Creación e Inserción)
-    clearFiltersBtn.textContent = 'Limpiar Filtros';
-    clearFiltersBtn.classList.add('apply-filters-btn', 'clear-filters-btn');
-
-    const lastFilterGroup = filtersPanel.querySelector('.filter-group:last-of-type');
-    if (lastFilterGroup) {
-        lastFilterGroup.insertAdjacentElement('afterend', clearFiltersBtn);
-    } else {
-        filtersPanel.appendChild(clearFiltersBtn);
-    }
-
-    clearFiltersBtn.addEventListener('click', clearFilters);
-
-    // ===============================================
-    // 6. ASIGNACIÓN DE EVENT LISTENER PARA BOTÓN RESERVAR (ALERTA)
-    // ===============================================
-
-    if (resultsList) {
-        resultsList.addEventListener('click', (event) => {
-            const reserveBtn = event.target.closest('.reserve-btn');
-
-            if (reserveBtn) {
-                event.preventDefault();
-                alert("La función de Reserva se implementará pronto.");
-            }
-        });
-    }
-});
-
-// ===============================================================================================================
-// ===============================================================================================================
+// =========================================================
+// 3. FUNCIÓN FLECHA: Lógica de la interfaz de Login/Registro
+// =========================================================
 
 /**
- * Alterna la visibilidad entre el panel de Login y el de Registro.
+ * Función Flecha: Alterna la visibilidad entre el panel de Login y el de Registro.
  * @param {string} panelId - El ID del formulario a mostrar ('login-panel' o 'register-panel').
  */
-function showPanel(panelId) {
+const showPanel = (panelId) => { // <-- ¡Corregida a Función Flecha!
     const loginPanel = document.getElementById('login-panel');
     const registerPanel = document.getElementById('register-panel');
     const tabLogin = document.getElementById('tab-login');
     const tabRegister = document.getElementById('tab-register');
 
     // Alternar visibilidad de formularios
-    loginPanel.classList.toggle('hidden-form', panelId !== 'login-panel');
-    registerPanel.classList.toggle('hidden-form', panelId !== 'register-panel');
+    if (loginPanel) loginPanel.classList.toggle('hidden-form', panelId !== 'login-panel');
+    if (registerPanel) registerPanel.classList.toggle('hidden-form', panelId !== 'register-panel');
 
     // Alternar clases activas de los botones
-    tabLogin.classList.toggle('active', panelId === 'login-panel');
-    tabRegister.classList.toggle('active', panelId === 'register-panel');
+    if (tabLogin) tabLogin.classList.toggle('active', panelId === 'login-panel');
+    if (tabRegister) tabRegister.classList.toggle('active', panelId === 'register-panel');
 
     // Limpiar mensajes al cambiar de pestaña
-    document.getElementById('login-message').textContent = '';
-    document.getElementById('register-message').textContent = '';
-}
+    const loginMessage = document.getElementById('login-message');
+    const registerMessage = document.getElementById('register-message');
+    if (loginMessage) loginMessage.textContent = '';
+    if (registerMessage) registerMessage.textContent = '';
+};
+
 
 /**
- * Maneja el envío del formulario de Registro.
- * Guarda el usuario en localStorage.
+ * Función Flecha: Maneja el envío del formulario de Registro.
+ * @param {Event} event - El evento de envío del formulario.
  */
-function handleRegister(event) {
+const handleRegister = (event) => { // <-- ¡Corregida a Función Flecha!
     event.preventDefault();
 
     const name = document.getElementById('register-name').value.trim();
@@ -418,10 +193,7 @@ function handleRegister(event) {
     }
 
     // 2. Crear y guardar el nuevo usuario
-    storedUsers[email] = {
-        name: name,
-        password: password
-    };
+    storedUsers[email] = {name, password};
     localStorage.setItem('theraUsers', JSON.stringify(storedUsers));
 
     // 3. Mostrar éxito y redirigir
@@ -429,15 +201,16 @@ function handleRegister(event) {
     messageElement.style.color = 'green';
     messageElement.textContent = `¡Registro exitoso para ${name}! Redireccionando...`;
 
-    event.target.reset(); // Limpiar formulario
+    event.target.reset();
     setTimeout(() => showPanel('login-panel'), 2000);
-}
+};
+
 
 /**
- * Maneja el envío del formulario de Inicio de Sesión.
- * Compara con los datos guardados en localStorage.
+ * Función Flecha: Maneja el envío del formulario de Inicio de Sesión.
+ * @param {Event} event - El evento de envío del formulario.
  */
-function handleLogin(event) {
+const handleLogin = (event) => { // <-- ¡Corregida a Función Flecha!
     event.preventDefault();
 
     const email = document.getElementById('login-email').value.toLowerCase().trim();
@@ -452,7 +225,6 @@ function handleLogin(event) {
 
     // 1. Comprobar si existe la cuenta
     if (!user) {
-        // Este es el mensaje que solicitaste si la cuenta no existe
         messageElement.textContent = "Error: No se encontró una cuenta con ese correo electrónico. Por favor, regístrese.";
         return;
     }
@@ -467,4 +239,218 @@ function handleLogin(event) {
         // Contraseña Incorrecta
         messageElement.textContent = "Error: Contraseña incorrecta.";
     }
-}
+};
+
+
+// =========================================================
+// 4. FUNCIÓN FLECHA: Lógica de Búsqueda y Filtros
+// (El resto del código se mueve dentro de DOMContentLoaded para mejor manejo de variables locales)
+// =========================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Variables de Estado y Referencias del DOM ---
+    let filteredVehiclesState = [...vehiculos];
+    let currentSortValue = 'none';
+
+    const toggleSortBtn = document.getElementById('toggleSort');
+    const sortPanel = document.getElementById('sort-panel');
+    const toggleFiltersBtn = document.getElementById('toggleFilters');
+    const filtersPanel = document.getElementById('filters-panel');
+    const applySortBtn = document.querySelector('.apply-sort-btn');
+    const sortBySelect = document.getElementById('sort-by');
+    const applyFiltersBtn = document.querySelector('.apply-filters-btn');
+    const priceRangeInput = document.getElementById('price-range');
+    const currentPriceSpan = document.getElementById('current-price');
+    const clearFiltersBtn = document.createElement('button');
+    const resultsList = document.querySelector('.results-list');
+    const searchForm = document.querySelector('.compact-search-form');
+    const locationSearchInput = document.querySelector('.compact-search-form .location-input');
+
+    if (!filtersPanel || !sortPanel) {
+        // Si no estamos en car-search.html, solo inicializa la vista de account.html si existe
+        if (document.getElementById('login-panel')) {
+            showPanel('login-panel');
+        }
+        return;
+    }
+
+    /**
+     * Función Flecha: Alterna la visibilidad de los paneles de filtro/ordenamiento.
+     */
+    const togglePanel = (panel) => {
+        const otherPanel = (panel === sortPanel) ? filtersPanel : sortPanel;
+        if (!otherPanel.classList.contains('hidden')) {
+            otherPanel.classList.add('hidden');
+        }
+        panel.classList.toggle('hidden');
+    };
+
+    /**
+     * Función Flecha: Aplica el ordenamiento al array de vehículos proporcionado.
+     */
+    const sortVehicles = (carList, sortValue) => {
+        return carList.sort((a, b) => {
+            if (sortValue === 'price-asc') {
+                return a.price - b.price;
+            } else if (sortValue === 'price-desc') {
+                return b.price - a.price;
+            } else if (sortValue === 'rating') {
+                return b.rating - a.rating;
+            } else if (sortValue === 'distance') {
+                return a.distance - b.distance;
+            }
+            return 0;
+        });
+    };
+
+    // --- Lógica de Ordenamiento ---
+    const applySort = () => {
+        currentSortValue = sortBySelect.value;
+
+        let sortedVehicles = [...filteredVehiclesState];
+        sortedVehicles = sortVehicles(sortedVehicles, currentSortValue);
+
+        renderCars(sortedVehicles);
+        sortPanel.classList.add('hidden');
+    };
+
+    // --- FUNCIÓN FLECHA: CALCULO/MUESTRA (updatePriceDisplay) ---
+    /**
+     * Cumple con el requisito de JS de cálculo/mostrar en base a un input.
+     */
+    const updatePriceDisplay = () => {
+        if (priceRangeInput && currentPriceSpan) {
+            // Formatea el valor con separadores de miles
+            currentPriceSpan.textContent = parseInt(priceRangeInput.value).toLocaleString('es-AR');
+        }
+    };
+
+
+    // --- Inicializar Búsqueda Desde URL ---
+    const initializeSearchFromUrl = () => {
+        const params = new URLSearchParams(window.location.search);
+        const locationParam = params.get('location');
+
+        if (locationParam && locationSearchInput) {
+            locationSearchInput.value = locationParam;
+            applyFilters();
+        } else {
+            renderCars(vehiculos);
+        }
+    };
+
+    // --- Lógica de Filtrado ---
+    const applyFilters = () => {
+        const searchLocationTerm = locationSearchInput.value.toLowerCase().trim();
+        const typeCheckboxes = filtersPanel.querySelectorAll('input[name="type"]:checked, input[name="hatchback"]:checked');
+        const selectedTypes = Array.from(typeCheckboxes).map(cb => cb.value);
+        const maxPrice = parseInt(priceRangeInput.value, 10);
+        const featureCheckboxes = filtersPanel.querySelectorAll('input[name="feature"]:checked');
+        const requiredFeatures = Array.from(featureCheckboxes).map(cb => cb.value);
+
+        const newlyFilteredVehicles = vehiculos.filter(car => {
+
+            // FILTRO A: UBICACIÓN
+            if (searchLocationTerm.length > 0) {
+                const locationMatch = car.location.toLowerCase().includes(searchLocationTerm);
+                if (!locationMatch) return false;
+            }
+
+            // FILTRO B: Tipo de Vehículo
+            const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(car.type);
+            if (!typeMatch) return false;
+
+            // FILTRO C: Precio Máximo
+            const priceMatch = car.price <= maxPrice;
+            if (!priceMatch) return false;
+
+            // FILTRO D: Características
+            const featuresMatch = requiredFeatures.every(feature => car.features.includes(feature));
+            if (!featuresMatch) return false;
+
+            return true;
+        });
+
+        filteredVehiclesState = newlyFilteredVehicles;
+
+        let vehiclesToRender = [...filteredVehiclesState];
+        if (currentSortValue !== 'none') {
+            vehiclesToRender = sortVehicles(vehiclesToRender, currentSortValue);
+        }
+
+        renderCars(vehiclesToRender);
+    };
+
+    // --- Lógica de Limpiar Filtros ---
+    const clearFilters = () => {
+        locationSearchInput.value = '';
+
+        filtersPanel.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+
+        const maxVal = parseInt(priceRangeInput.max, 10);
+        priceRangeInput.value = maxVal;
+        updatePriceDisplay(); // Usa la función de flecha para actualizar el display
+
+        filteredVehiclesState = [...vehiculos];
+        currentSortValue = 'none';
+
+        renderCars(vehiculos);
+    };
+
+
+    // ===============================================
+    // 5. ASIGNACIÓN DE EVENT LISTENERS
+    // ===============================================
+
+    // Carga inicial y lógica de filtros
+    initializeSearchFromUrl();
+
+    // Asignación de la función de cálculo/muestra al input de rango
+    updatePriceDisplay(); // Muestra el valor inicial
+    priceRangeInput.addEventListener('input', updatePriceDisplay); // Actualiza al arrastrar
+
+
+    // BÚSQUEDA POR UBICACIÓN
+    if (searchForm) {
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            applyFilters();
+        });
+    }
+
+    // Desplegables
+    toggleSortBtn.addEventListener('click', () => togglePanel(sortPanel));
+    toggleFiltersBtn.addEventListener('click', () => togglePanel(filtersPanel));
+
+    // Aplicar
+    applySortBtn.addEventListener('click', applySort);
+    applyFiltersBtn.addEventListener('click', applyFilters);
+
+    // Botón de Limpiar Filtros
+    clearFiltersBtn.textContent = 'Limpiar Filtros';
+    clearFiltersBtn.classList.add('apply-filters-btn', 'clear-filters-btn');
+
+    const lastFilterGroup = filtersPanel.querySelector('.filter-group:last-of-type');
+    if (lastFilterGroup) {
+        lastFilterGroup.insertAdjacentElement('afterend', clearFiltersBtn);
+    } else {
+        filtersPanel.appendChild(clearFiltersBtn);
+    }
+
+    clearFiltersBtn.addEventListener('click', clearFilters);
+
+    // Botón Reservar
+    if (resultsList) {
+        resultsList.addEventListener('click', (event) => {
+            const reserveBtn = event.target.closest('.reserve-btn');
+
+            if (reserveBtn) {
+                event.preventDefault();
+                alert("La función de Reserva se implementará pronto.");
+            }
+        });
+    }
+});

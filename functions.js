@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Calcula cuánto debe moverse el scroll. (1.5 es un multiplicador de velocidad)
             const walk = (x - startX) * 1.5;
 
-            // Aplica el desplazamiento
+            // Aplica el scroll
             slider.scrollLeft = scrollLeft - walk;
         });
     }

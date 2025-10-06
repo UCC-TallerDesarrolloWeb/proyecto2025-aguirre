@@ -1,3 +1,13 @@
+/*
+ * REFACTORIZACIÓN DEL ARCHIVO STYLES.CSS
+ * Objetivo: Eliminar !important, código duplicado/redundante,
+ * mantener la consistencia visual y reutilizar estilos.
+ */
+
+/* ----------------------------------------
+ * RESET Y ESTILOS BASE
+ * ----------------------------------------*/
+
 * {
     margin: 0;
     padding: 0;
@@ -11,27 +21,36 @@ body {
 }
 
 /* ----------------------------------------
- * FUENTES DE GOOGLE FONTS
+ * TIPOGRAFÍA
  * ----------------------------------------*/
 
+/* Variable para el color de acento */
+:root {
+    --accent-color: #0ef;
+    --primary-color: black;
+    --light-bg: #f7f7f7;
+    --text-color-dark: #333;
+    --text-color-light: #495057;
+}
+
+/* Base para la fuente decorativa 'Funnel Display' */
 .funnel-font {
-    /* La regla principal para aplicar esta fuente de manera selectiva */
-    font-family: 'Funnel Display', sans-serif !important;
+    font-family: 'Funnel Display', sans-serif;
     font-weight: 400; /* Funnel Display es solo Regular */
 }
 
-/* Aplicación recomendada para TÍTULOS GRANDES y la marca */
+/* Aplicación de Funnel Display a TÍTULOS GRANDES y elementos de marca */
 h1, h2, h3, .footer-logo, .tagline-funnel {
-    font-family: 'Funnel Display', sans-serif !important;
+    font-family: 'Funnel Display', sans-serif;
 }
 
-/* Aplicación específica para elementos clave */
+/* Aplicación específica para elementos clave con letter-spacing */
+/* Ahora sobrescribe con mayor especificidad sin usar !important */
 .content-page-container h1,
 .car-list-column h1,
 .about-heading,
 .footer-logo {
-    /* Usamos !important en algunos casos para asegurar que sobrescriba otras reglas */
-    font-family: 'Funnel Display', sans-serif !important;
+    font-family: 'Funnel Display', sans-serif;
     letter-spacing: 1.5px; /* Mejora la apariencia de esta fuente decorativa */
 }
 
@@ -40,7 +59,15 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/*Video Opener*/
+/* Estilos de párrafo general */
+p {
+    color: var(--text-color-dark);
+}
+
+/* ----------------------------------------
+ * VIDEO HERO
+ * ----------------------------------------*/
+
 .hero {
     position: relative;
     height: 100vh;
@@ -84,12 +111,16 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* <--- cambia 0.5 para más o menos opacidad */
+    /* La opacidad original es 0.6 */
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(3px);
     z-index: 1;
 }
 
-/*Navigation Bar*/
+/* ----------------------------------------
+ * BARRA DE NAVEGACIÓN
+ * ----------------------------------------*/
+
 #navigationBar {
     position: sticky;
     top: 0;
@@ -128,17 +159,100 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 }
 
 #navigationBar a {
-    color: black;
+    color: var(--primary-color);
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s;
 }
 
+/* Pseudoclase :hover */
 #navigationBar a:hover {
-    color: #0ef;
+    color: var(--accent-color);
 }
 
-/*Content*/
+/* ----------------------------------------
+ * BOTONES REUTILIZABLES
+ * ----------------------------------------*/
+
+/* Estilo base para todos los botones de acción principal */
+.primary-button, .aboutUs-button, .reserve-btn,
+.search-button, .apply-sort-btn, .apply-filters-btn, .seeMore-button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+/* Sobrescritura de padding para elementos más grandes o pequeños */
+.search-button {
+    padding: 15px 25px; /* Más grande en la barra principal */
+    border-radius: 0 8px 8px 0;
+}
+
+.reserve-btn {
+    padding: 8px 15px; /* Más pequeño en tarjeta de resultado */
+}
+
+.seeMore-button {
+    padding: 10px 20px;
+}
+
+.apply-sort-btn, .apply-filters-btn {
+    padding: 10px; /* Ajuste para el panel de control */
+    border-radius: 4px;
+}
+
+/* Pseudoclase :hover para botones primarios */
+.primary-button:hover, .aboutUs-button:hover, .reserve-btn:hover,
+.search-button:hover, .apply-sort-btn:hover, .apply-filters-btn:hover, .seeMore-button:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border-color: var(--accent-color);
+    /* Manteniendo el estilo hover de .primary-button para consistencia */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón secundario (bordeado) */
+.secondary-button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--primary-color);
+    border: var(--primary-color) solid 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.secondary-button:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón de limpiar filtros */
+.clear-filters-btn {
+    background-color: #eee;
+    color: #333;
+    margin-top: 10px;
+}
+
+.clear-filters-btn:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* ----------------------------------------
+ * SECCIÓN DE CONTENIDO GENERAL
+ * ----------------------------------------*/
+
 .content h1 {
     text-align: center;
     padding: 15px 0;
@@ -148,7 +262,10 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     text-align: center;
 }
 
-/*Search Bar*/
+/* ----------------------------------------
+ * BARRA DE BÚSQUEDA PRINCIPAL (HEADER)
+ * ----------------------------------------*/
+
 .searchBar-container {
     left: 50%;
     margin: 20px auto;
@@ -167,7 +284,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     flex-wrap: nowrap;
 }
 
-.search-form input {
+.search-form input, .compact-search-form .search-input {
     flex-grow: 1;
     padding: 15px 20px;
     border: 2px solid #ddd;
@@ -188,34 +305,59 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 .date-input {
     border-radius: 0;
     border-right: 2px solid #ddd;
+    color: #888;
 }
 
+/* El penúltimo input es el que debe tener borde derecho en la forma completa */
+.search-form input:nth-last-child(2) {
+    border-right: 2px solid #ddd;
+}
+
+/* Eliminar el borde derecho del último input si no es el botón */
 #searchBar_dateEnd {
     border-right: none;
 }
 
-.search-button {
-    padding: 15px 25px;
-    background: black;
-    color: white;
+/* ----------------------------------------
+ * BARRA DE BÚSQUEDA COMPACTA EN HEADER
+ * ----------------------------------------*/
+.compact-search-form {
+    flex-grow: 1;
+    max-width: 650px;
+    margin: 0 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+/* Estilo de los inputs dentro de la barra compacta */
+.compact-search-form .search-input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
     border: none;
-    border-radius: 0 8px 8px 0;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: border-color 0.3s;
+    border-right: 1px solid #eee; /* Separador sutil */
 }
 
-.search-button:hover {
-    background: #0ef;
+/* El último input en la compacta */
+.compact-search-form .date-input:last-of-type {
+    border-right: none;
 }
 
-.date-input {
-    color: #888;
+.compact-search-form .location-input {
+    border-radius: 0;
 }
 
-/*Car Options Slider*/
-/*Implementar que ocupen el ancho de la pantalla y agregar mas opciones*/
+.compact-search-form .search-button {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    border-radius: 0;
+}
+
+/* ----------------------------------------
+ * CARRUSEL DE OPCIONES DE COCHE
+ * ----------------------------------------*/
+
 .carOptions {
     padding: 40px;
     margin: 0;
@@ -224,7 +366,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 .carOptions h2 {
     margin: 0 50px 25px 50px;
     font-size: 1.8rem;
-    color: black;
+    color: var(--primary-color);
 }
 
 .carOptionsCarousel-container {
@@ -232,7 +374,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     scroll-behavior: smooth;
     -ms-overflow-style: none;
     scrollbar-width: none;
-
+    /* Pseudoelemento para ocultar scrollbar en Webkit */
     &::-webkit-scrollbar {
         display: none;
     }
@@ -258,10 +400,11 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     background-color: white;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
     scroll-snap-align: start;
 }
 
+/* Pseudoclase :hover */
 .carCard:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -283,7 +426,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 }
 
 .card-details {
-    color: black;
+    color: var(--primary-color);
     font-size: 0.95rem;
     font-weight: normal;
     margin-bottom: 15px;
@@ -292,34 +435,25 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 .card-price {
     font-size: 1.2rem;
     font-weight: bold;
-    color: black;
+    color: var(--primary-color);
     margin-bottom: 15px;
 }
 
 .seeMore-button {
     position: relative;
     left: 50%;
+    transform: translateX(-50%); /* Centrado */
     width: fit-content;
-    padding: 10px 20px;
-    color: white;
-    background-color: black;
-    text-decoration: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: border-color 0.3s;
 }
 
-.seeMore-button:hover {
-    background: #0ef;
-}
+/* ----------------------------------------
+ * SECCIÓN DE INFORMACIÓN (ACERCA DE, FAQ)
+ * ----------------------------------------*/
 
 .infoSection {
     padding: 60px 50px;
-    background-color: #f7f7f7;
+    background-color: var(--light-bg);
 }
-
 
 .infoSection-container {
     max-width: 1200px;
@@ -343,36 +477,29 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 
 .col-aboutUs {
     line-height: 1.6;
-    color: black;
-    /*margin-bottom: 25px;*/
+    color: var(--primary-color);
 }
 
 #thera-resumen p {
     padding: 10px;
 }
 
-.aboutUs-button {
-    padding: 10px 20px;
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-    transition: border-color 0.3s;
-}
-
-.aboutUs-button:hover {
-    background: #0ef;
-}
+/* ----------------------------------------
+ * FAQ GENERAL (Reutilizado en InfoSection y FAQ Page)
+ * ----------------------------------------*/
 
 .faq-item {
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid #e9ecef; /* Usando color de la sección de página */
+    transition: background-color 0.3s;
 }
 
 .faq-item:last-child {
     border-bottom: none;
+}
+
+/* Pseudoclase :hover */
+.faq-item:hover {
+    background-color: #f8f9fa;
 }
 
 .faq-toggle {
@@ -384,19 +511,28 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     padding: 15px 0;
     cursor: pointer;
     font-weight: bold;
-    color: black;
+    color: var(--primary-color);
     position: relative;
     padding-right: 30px;
+    /* Ajuste para la página de FAQ para que se vea más grande/espaciado */
+    font-size: 1.1rem;
+    padding: 18px 0;
+    padding-right: 40px;
+    color: #333;
 }
 
+/* Pseudoelemento ::after para el icono de flecha */
 .faq-question::after {
-    content: '\203A';
+    content: '\203A'; /* Carácter de ángulo hacia la derecha */
     font-size: 1.5rem;
     position: absolute;
     right: 5px;
     top: 50%;
     transform: translateY(-50%) rotate(90deg);
     transition: transform 0.3s ease;
+    /* Color de acento para el icono de la página de FAQ */
+    color: var(--accent-color);
+    font-size: 1.8rem;
 }
 
 .faq-answer {
@@ -407,21 +543,30 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 
 .faq-answer p {
     padding: 0 0 15px 0;
-    color: black;
+    color: var(--primary-color);
     line-height: 1.5;
+    /* Ajuste para la página de FAQ */
+    padding: 0 10px 18px 0;
+    color: #555;
+    font-size: 0.95rem;
 }
 
+/* Pseudoclase :checked para mostrar la respuesta y rotar el icono */
 .faq-toggle:checked ~ .faq-answer {
     max-height: 200px;
 }
 
-.faq-toggle:checked ~ .faq-question:after {
+.faq-toggle:checked ~ .faq-question::after {
     transform: translateY(-50%) rotate(-90deg);
 }
 
+/* ----------------------------------------
+ * SECCIÓN JOIN US
+ * ----------------------------------------*/
+
 .joinUs {
     background-color: white;
-    color: black;
+    color: var(--primary-color);
     padding: 80px 20px;
     text-align: center;
 }
@@ -439,46 +584,13 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 .joinUs-container p {
     font-size: 1.2rem;
     margin-bottom: 40px;
-    color: black;
+    color: var(--primary-color);
 }
 
-.primary-button {
-    padding: 10px 20px;
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: border-color 0.3s;
-}
+/* ----------------------------------------
+ * PIE DE PÁGINA
+ * ----------------------------------------*/
 
-.primary-button:hover {
-    background-color: #0ef;
-    color: black;
-    border-color: #0ef;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-.secondary-button {
-    padding: 10px 20px;
-    background-color: transparent;
-    color: black;
-    border: black solid 1px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.secondary-button:hover {
-    background-color: #0ef;
-    color: black;
-    border-color: #0ef;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-/*Footer*/
 .main-footer {
     background-color: #1a1a1a;
     color: #ccc;
@@ -541,42 +653,44 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     transition: color 0.3s, padding-left 0.3s;
 }
 
+/* Pseudoclase :hover */
 .footer-col a:hover {
-    color: #0ef;
+    color: var(--accent-color);
     text-decoration: underline;
     padding-left: 5px;
 }
 
+/* ----------------------------------------
+ * PÁGINA DE RESULTADOS DE BÚSQUEDA
+ * ----------------------------------------*/
+
 .search-results-page {
     display: flex;
-    /* Altura total de la vista menos un estimado del header (ej. 80px) */
-    height: calc(100vh - 80px);
+    height: calc(100vh - 80px); /* Altura total de la vista menos un estimado del header */
     width: 100%;
 }
 
-
 /* ----------------------------------------
  * CONTROLES DE RESULTADOS (FILTROS Y ORDENAR)
- * ----------------------------------------
- */
+ * ----------------------------------------*/
 
 .controls-bar-split {
     display: flex;
-    justify-content: flex-start; /* Alinea a la izquierda */
-    gap: 15px; /* Espacio entre los grupos de control */
+    justify-content: flex-start;
+    gap: 15px;
     margin-bottom: 20px;
     position: relative;
 }
 
 .control-group {
     position: relative;
-    z-index: 500; /* Asegura que el panel esté por encima de la lista de coches */
+    z-index: 500;
 }
 
 .toggle-control-btn {
     padding: 10px 15px;
     background-color: white;
-    color: black;
+    color: var(--primary-color);
     border: 1px solid #ddd;
     border-radius: 6px;
     cursor: pointer;
@@ -587,8 +701,9 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     transition: background-color 0.2s, border-color 0.2s;
 }
 
+/* Pseudoclase :hover */
 .toggle-control-btn:hover {
-    background-color: #f7f7f7;
+    background-color: var(--light-bg);
     border-color: #bbb;
 }
 
@@ -599,7 +714,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 
 .control-panel {
     position: absolute;
-    top: 100%; /* Coloca el panel justo debajo del botón */
+    top: 100%;
     left: 0;
     margin-top: 5px;
     background-color: white;
@@ -616,7 +731,6 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     display: none;
 }
 
-/* --- Grupos de Filtros --- */
 .filter-group {
     margin-bottom: 15px;
 }
@@ -624,7 +738,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 .filter-group h4 {
     margin-bottom: 10px;
     font-size: 1rem;
-    color: #333;
+    color: var(--text-color-dark);
     font-weight: bold;
 }
 
@@ -646,52 +760,18 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     margin-right: 5px;
 }
 
-/* Separador */
 .control-panel hr {
     border: 0;
     border-top: 1px solid #eee;
     margin: 15px 0;
 }
 
-/* Select de Ordenamiento */
 .sort-select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-bottom: 10px;
-}
-
-/* Botones de Aplicar */
-.apply-sort-btn,
-.apply-filters-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.apply-sort-btn:hover,
-.apply-filters-btn:hover {
-    background-color: #0ef;
-    color: black;
-}
-
-/* Botón de Limpiar Filtros (añadido por JS) */
-.clear-filters-btn {
-    background-color: #eee;
-    color: #333;
-    margin-top: 10px; /* Separación del botón de Aplicar */
-}
-
-.clear-filters-btn:hover {
-    background-color: #ddd;
-    color: black;
 }
 
 /* --- COLUMNA DE LISTA --- */
@@ -709,7 +789,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 }
 
 .results-list {
-    overflow-y: scroll; /* Scroll solo en la lista */
+    overflow-y: scroll;
     padding-right: 10px;
 }
 
@@ -727,6 +807,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     cursor: pointer;
 }
 
+/* Pseudoclase :hover */
 .search-car-card:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -751,24 +832,8 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 .daily-price {
     font-size: 1.4rem;
     font-weight: bold;
-    color: #0ef;
+    color: var(--accent-color);
     display: block;
-}
-
-.reserve-btn {
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-.reserve-btn:hover {
-    background-color: #0ef;
-    color: black;
 }
 
 /* --- COLUMNA DEL MAPA --- */
@@ -793,60 +858,24 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 }
 
 /* ----------------------------------------
- * BARRA DE BÚSQUEDA COMPACTA EN HEADER
+ * AUTENTICACIÓN (INICIO DE SESIÓN / REGISTRO)
  * ----------------------------------------*/
-.compact-search-form {
-    flex-grow: 1; /* Permite que la barra de búsqueda ocupe el espacio restante */
-    max-width: 650px; /* Limita el ancho para que no se extienda demasiado */
-    margin: 0 20px;
-    border: 1px solid #ddd; /* Borde alrededor de toda la forma */
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: none; /* Quitamos la sombra de la versión grande */
-}
 
-/* Estilo de los inputs dentro de la barra compacta */
-.compact-search-form .search-input {
-    padding: 10px 12px; /* Reducimos el padding para hacerlos más pequeños */
-    font-size: 0.9rem;
-    border: none; /* Quitamos los bordes internos */
-    border-right: 1px solid #eee; /* Separador sutil */
-}
-
-/* El último input no debe tener borde derecho */
-.compact-search-form .date-input:last-of-type {
-    border-right: none;
-}
-
-/* Ajustes de radio en la versión compacta */
-.compact-search-form .location-input {
-    border-radius: 0;
-}
-
-.compact-search-form .search-button {
-    padding: 10px 18px; /* Reducimos el padding del botón */
-    font-size: 0.9rem;
-    border-radius: 0; /* Quitamos el radio en el botón */
-}
-
-/*INICIO DE SESION*/
-/* Asegura que el contenedor de auth tome toda la vista si es una página dedicada */
-/* Si se usa en un modal, simplemente quita el 'display: flex' y céntralo con margin auto */
 .auth-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f7f7f7; /* Fondo ligero */
+    background-color: var(--light-bg);
+    position: relative; /* Para posicionar el botón de regreso */
 }
 
-/* --- ESTILOS DEL BOTÓN DE REGRESO --- */
 .back-button {
     position: absolute;
-    top: 40px; /* Posiciona el botón arriba */
-    left: 40px; /* Posiciona el botón a la izquierda */
+    top: 40px;
+    left: 40px;
     text-decoration: none;
-    color: black;
+    color: var(--primary-color);
     font-size: 1rem;
     font-weight: bold;
     display: flex;
@@ -860,10 +889,11 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 }
 
 .back-button:hover {
-    background-color: #0ef;
-    color: black;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
 }
 
+/* Pseudoelemento ::before */
 .back-button::before {
     content: '\2190'; /* Carácter de flecha izquierda (←) */
     font-size: 1.2rem;
@@ -882,13 +912,12 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     margin: 0 auto;
 }
 
-/* Contenedor principal del formulario de autenticación */
 .auth-container {
     width: 100%;
     max-width: 400px;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra para destacarse */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     padding: 30px 25px;
 }
 
@@ -896,7 +925,6 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     display: none;
 }
 
-/* PESTAÑAS (Toggle) */
 .auth-tab-header {
     display: flex;
     margin-bottom: 25px;
@@ -911,17 +939,16 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     border: none;
     font-size: 16px;
     font-weight: 600;
-    color: black;
+    color: var(--primary-color);
     transition: color 0.3s;
 }
 
 .auth-tab-button.active {
-    color: #0ef; /* Color de acento para la pestaña activa */
-    border-bottom: 3px solid #0ef;
+    color: var(--accent-color);
+    border-bottom: 3px solid var(--accent-color);
     margin-bottom: -1px;
 }
 
-/* FORMULARIO */
 .auth-form-group {
     margin-bottom: 20px;
 }
@@ -931,7 +958,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     margin-bottom: 6px;
     font-size: 14px;
     font-weight: 500;
-    color: black;
+    color: var(--primary-color);
 }
 
 .auth-form-group input {
@@ -943,8 +970,9 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+/* Pseudoclase :focus */
 .auth-form-group input:focus {
-    border-color: #0ef; /* Color de acento al enfocar */
+    border-color: var(--accent-color);
     box-shadow: 0 0 0 0.2rem rgba(0, 238, 255, 0.25);
     outline: none;
 }
@@ -952,19 +980,19 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 .auth-btn-submit {
     width: 100%;
     padding: 12px;
-    background-color: black; /* Color del botón primario del sitio */
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 6px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .auth-btn-submit:hover {
-    background-color: #0ef; /* Color de acento al pasar el mouse */
-    color: black;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .auth-forgot-password {
@@ -975,17 +1003,16 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 
 .auth-forgot-password a {
     font-size: 14px;
-    color: black; /* Color del texto normal */
+    color: var(--primary-color);
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .auth-forgot-password a:hover {
-    color: #0ef; /* Color de acento al pasar el mouse */
+    color: var(--accent-color);
     text-decoration: underline;
 }
 
-/* Mensajes de feedback */
 .auth-message {
     text-align: center;
     margin-top: 20px;
@@ -993,26 +1020,19 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     font-weight: 500;
 }
 
-/*FAQ CONTAINER - FAQ PAGE*/
-.faq-container {
-    flex: 1;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
 /* ----------------------------------------
  * ESTRUCTURA GENERAL DE PÁGINAS DE CONTENIDO (FAQ, ABOUT, etc.)
  * ----------------------------------------*/
+
 .content-page-wrapper {
-    padding: 60px 20px; /* Padding superior, inferior y lateral */
-    min-height: calc(100vh - 80px - 100px); /* Altura mínima: Altura de la vista - Header - Footer */
-    background-color: #f7f7f7; /* Fondo ligero para separar del header/footer */
+    padding: 60px 20px;
+    /* Altura mínima: Altura de la vista - Header - Footer (ajustando la estimación) */
+    min-height: calc(100vh - 80px - 100px);
+    background-color: var(--light-bg);
 }
 
 .content-page-container {
-    max-width: 1000px; /* Contenedor centralizado para mejor lectura */
+    max-width: 1000px;
     margin: 0 auto;
     background-color: white;
     padding: 40px;
@@ -1022,7 +1042,7 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 
 .content-page-container h1 {
     font-size: 2.5rem;
-    color: black;
+    color: var(--primary-color);
     margin-bottom: 10px;
     text-align: center;
 }
@@ -1034,48 +1054,15 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     margin-bottom: 40px;
     border-bottom: 1px solid #eee;
     padding-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif; /* Sobrescribir Funnel Display si no tiene tagline-funnel */
+    letter-spacing: normal;
 }
 
-/* ----------------------------------------
- * MEJORAS VISUALES PARA LA SECCIÓN DE FAQ
- * ----------------------------------------*/
-
-/* La clase .faq-container ya está definida, solo la estilizo */
+/* El .faq-container aquí solo sirve de wrapper sin estilos de caja adicionales */
 .faq-container {
-    /* El flex: 1 se mantiene, pero aquí lo controlaremos */
-    padding: 0; /* Quitamos el padding extra, ya lo tiene el content-page-container */
-    background-color: transparent; /* No queremos doble fondo blanco */
-    box-shadow: none; /* Quitamos la sombra, ya la tiene el contenedor principal */
-}
-
-.faq-item {
-    border-bottom: 1px solid #e9ecef;
-    transition: background-color 0.3s;
-}
-
-.faq-item:hover {
-    background-color: #f8f9fa; /* Efecto hover sutil */
-}
-
-.faq-question {
-    font-size: 1.1rem;
-    color: #333;
-    padding: 18px 0;
-    padding-right: 40px; /* Más espacio para el ícono */
-    margin: 0;
-}
-
-.faq-question::after {
-    /* Ajuste para que el icono de flecha use el color de acento */
-    color: #0ef;
-    font-size: 1.8rem;
-}
-
-.faq-answer p {
-    padding: 0 10px 18px 0; /* Padding inferior y pequeño indentado */
-    line-height: 1.7;
-    color: #555;
-    font-size: 0.95rem;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
 }
 
 /* ----------------------------------------
@@ -1084,27 +1071,25 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
 
 .about-section {
     padding: 20px 0;
-    margin-bottom: 30px; /* Más espacio entre secciones */
+    margin-bottom: 30px;
 }
 
 .about-heading {
     font-size: 2rem;
-    color: black;
+    color: var(--primary-color);
     margin-bottom: 25px;
-    border-left: 5px solid #0ef; /* Acento visual para el título */
+    border-left: 5px solid var(--accent-color);
     padding-left: 15px;
     font-weight: bold;
 }
 
-/* Estilo para los párrafos dentro de las secciones */
 .about-section p {
     font-size: 1.05rem;
     line-height: 1.8;
-    color: #495057;
+    color: var(--text-color-light);
     margin-bottom: 15px;
 }
 
-/* Estilo para las listas (Misión, Objetivos) */
 .about-section ul,
 .about-section ol {
     margin-left: 20px;
@@ -1116,41 +1101,40 @@ h1, h2, h3, .footer-logo, .tagline-funnel {
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 8px;
-    color: #495057;
+    color: var(--text-color-light);
 }
 
 .about-section li strong {
-    color: black; /* Resalta el punto principal */
+    color: var(--primary-color);
 }
 
-/* Diseño de la Misión/Beneficios en columnas (Usamos mission-grid para ambos) */
 .mission-grid {
     display: flex;
     gap: 30px;
     margin-top: 20px;
-    /* Flex-wrap para que se apilen en pantallas pequeñas */
     flex-wrap: wrap;
 }
 
 .mission-item {
-    flex: 1; /* Permite que ambos ítems crezcan por igual */
-    min-width: 300px; /* Mínimo para evitar que se aplasten demasiado */
+    flex: 1;
+    min-width: 300px;
     padding: 25px;
     border: 1px solid #eee;
     border-radius: 8px;
     background-color: #fcfcfc;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
+/* Pseudoclase :hover */
 .mission-item:hover {
-    transform: translateY(-3px); /* Efecto sutil al pasar el mouse */
+    transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .mission-title {
     font-size: 1.4rem;
-    color: #0ef; /* Color de acento */
+    color: var(--accent-color);
     margin-bottom: 10px;
     font-weight: bold;
 }
