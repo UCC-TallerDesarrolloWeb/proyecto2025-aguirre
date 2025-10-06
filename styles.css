@@ -972,4 +972,155 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/*ABOUT US PAGE*/
+/* ----------------------------------------
+ * ESTRUCTURA GENERAL DE PÁGINAS DE CONTENIDO (FAQ, ABOUT, etc.)
+ * ----------------------------------------*/
+.content-page-wrapper {
+    padding: 60px 20px; /* Padding superior, inferior y lateral */
+    min-height: calc(100vh - 80px - 100px); /* Altura mínima: Altura de la vista - Header - Footer */
+    background-color: #f7f7f7; /* Fondo ligero para separar del header/footer */
+}
+
+.content-page-container {
+    max-width: 1000px; /* Contenedor centralizado para mejor lectura */
+    margin: 0 auto;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.content-page-container h1 {
+    font-size: 2.5rem;
+    color: black;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.content-page-container .tagline {
+    text-align: center;
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+/* ----------------------------------------
+ * MEJORAS VISUALES PARA LA SECCIÓN DE FAQ
+ * ----------------------------------------*/
+
+/* La clase .faq-container ya está definida, solo la estilizo */
+.faq-container {
+    /* El flex: 1 se mantiene, pero aquí lo controlaremos */
+    padding: 0; /* Quitamos el padding extra, ya lo tiene el content-page-container */
+    background-color: transparent; /* No queremos doble fondo blanco */
+    box-shadow: none; /* Quitamos la sombra, ya la tiene el contenedor principal */
+}
+
+.faq-item {
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.3s;
+}
+
+.faq-item:hover {
+    background-color: #f8f9fa; /* Efecto hover sutil */
+}
+
+.faq-question {
+    font-size: 1.1rem;
+    color: #333;
+    padding: 18px 0;
+    padding-right: 40px; /* Más espacio para el ícono */
+    margin: 0;
+}
+
+.faq-question::after {
+    /* Ajuste para que el icono de flecha use el color de acento */
+    color: #0ef;
+    font-size: 1.8rem;
+}
+
+.faq-answer p {
+    padding: 0 10px 18px 0; /* Padding inferior y pequeño indentado */
+    line-height: 1.7;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* ----------------------------------------
+ * ESTILOS ESPECÍFICOS DE ABOUT US
+ * ----------------------------------------*/
+
+.about-section {
+    padding: 20px 0;
+    margin-bottom: 30px; /* Más espacio entre secciones */
+}
+
+.about-heading {
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 25px;
+    border-left: 5px solid #0ef; /* Acento visual para el título */
+    padding-left: 15px;
+    font-weight: bold;
+}
+
+/* Estilo para los párrafos dentro de las secciones */
+.about-section p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #495057;
+    margin-bottom: 15px;
+}
+
+/* Estilo para las listas (Misión, Objetivos) */
+.about-section ul,
+.about-section ol {
+    margin-left: 20px;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.about-section li {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+.about-section li strong {
+    color: black; /* Resalta el punto principal */
+}
+
+/* Diseño de la Misión/Beneficios en columnas (Usamos mission-grid para ambos) */
+.mission-grid {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    /* Flex-wrap para que se apilen en pantallas pequeñas */
+    flex-wrap: wrap;
+}
+
+.mission-item {
+    flex: 1; /* Permite que ambos ítems crezcan por igual */
+    min-width: 300px; /* Mínimo para evitar que se aplasten demasiado */
+    padding: 25px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.mission-item:hover {
+    transform: translateY(-3px); /* Efecto sutil al pasar el mouse */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mission-title {
+    font-size: 1.4rem;
+    color: #0ef; /* Color de acento */
+    margin-bottom: 10px;
+    font-weight: bold;
+}
