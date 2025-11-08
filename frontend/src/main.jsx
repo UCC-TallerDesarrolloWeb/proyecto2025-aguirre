@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import AppLayout from './App.jsx';
+import SearchLayout from '@components/SearchLayout';
 import '@styles/main.scss';
 
-// Importa todos los componentes de página
 import HomePage from '@pages/HomePage';
 import AboutPage from '@pages/AboutPage';
 import FAQPage from '@pages/FAQPage';
@@ -19,7 +19,13 @@ const router = createBrowserRouter([
             {index: true, element: <HomePage/>}, // index.html
             {path: 'about-us.html', element: <AboutPage/>}, // about-us.html
             {path: 'faq.html', element: <FAQPage/>}, // faq.html
-            {path: 'car-search.html', element: <CarSearchPage/>}, // car-search.html
+        ],
+    },
+    {
+        path: '/',
+        element: <SearchLayout/>,
+        children: [
+            {path: 'car-search.html', element: <CarSearchPage/>},
         ],
     },
     {
