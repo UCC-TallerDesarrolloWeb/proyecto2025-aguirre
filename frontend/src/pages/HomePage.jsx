@@ -1,63 +1,80 @@
-import React, {useEffect, useRef} from 'react';
-import NavigationBar from '@components/NavigationBar';
+import React, {useEffect, useRef, useState} from 'react';
+import NavigationBar from '@components/NavigationBar'; // <-- DEBES IMPORTAR AQUÍ
 import {Link} from 'react-router-dom';
 import Button from '@components/Button';
 import CarCard from '@components/CarCard';
 import {MOCK_VEHICLES} from '@api/vehiclesApi'; // Uso del mock data
-import whiteLogo from '../../public/white-logo.png'; // Logo desde public
+const whiteLogo = '/white-logo.png';
 
 const HomePage = () => {
-    // 1. Refs para la lógica de scroll
-    const navWrapperRef = useRef(null);
     const heroRef = useRef(null);
+    const navBarRef = useRef(null);
+    const [navHeight, setNavHeight] = useState(0);
+    const contentRef = useRef(null); // Declaración de contentRef
 
-    // Solo tomamos 7 autos populares para el carrusel
     const popularCars = MOCK_VEHICLES.slice(0, 7);
 
     // --- Lógica de Manejo de Fechas (functions.js) ---
     useEffect(() => {
         const today = new Date().toISOString().split('T')[0];
         const dateStartInput = document.getElementById('searchBar_dateStart');
-        // const dateEndInput = document.getElementById('searchBar_dateEnd'); // No se usa aquí, solo se define
 
         if (dateStartInput) {
             if (!dateStartInput.value) dateStartInput.value = today;
             dateStartInput.setAttribute('min', today);
         }
-        // Nota: La lógica de restricción de dateEnd se aplicaría en el 'onChange' en un escenario completo de React.
     }, []);
 
-    // --- Lógica de Sticky Navigation (Requisito: useEffect, useRef) ---
     useEffect(() => {
+        if (!navBarRef.current || !heroRef.current) return;
+
+        // 1. Medir la altura de la NavigationBar una sola vez.
+        if (navHeight === 0) {
+            // Usamos setTimeout para asegurar que la barra ha terminado de renderizarse y tiene su altura final.
+            const measureHeight = () => {
+                setNavHeight(navBarRef.current.offsetHeight);
+            };
+            // Retraso ligero para asegurar medición correcta
+            const timer = setTimeout(measureHeight, 50);
+            return () => clearTimeout(timer);
+        }
+
+        // 2. Lógica de Scroll
         const handleScroll = () => {
-            if (!navWrapperRef.current || !heroRef.current) return;
+            const heroBottom = heroRef.current.getBoundingClientRect().bottom;
+            const shouldBeSticky = heroBottom <= 0;
 
-            // Altura total del Hero (video + logo)
-            const heroHeight = heroRef.current.offsetHeight;
+            if (shouldBeSticky) {
+                // Aplicar clase 'nav-sticky' al wrapper del nav
+                navBarRef.current.classList.add('nav-sticky');
 
-            // Si el scroll vertical supera esa altura
-            if (window.scrollY > heroHeight) {
-                // Añadir clase definida en SASS para position: fixed
-                navWrapperRef.current.classList.add('nav-sticky');
+                // Aplicar padding-top al contenido siguiente para compensar el espacio (evita el salto)
+                if (contentRef.current) {
+                    contentRef.current.style.paddingTop = `${navHeight}px`;
+                }
             } else {
-                // Remover clase
-                navWrapperRef.current.classList.remove('nav-sticky');
+                // Remover la clase
+                navBarRef.current.classList.remove('nav-sticky');
+
+                // Remover el padding para que el contenido vuelva a su posición normal
+                if (contentRef.current) {
+                    contentRef.current.style.paddingTop = '0';
+                }
             }
         };
 
-        // Escuchar el evento de scroll
         window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Ejecutar al inicio
+        handleScroll();
 
-        // Función de limpieza al desmontar el componente
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [navHeight]);
+    // Depende de navHeight una vez (cuando es 0), y después funciona con el valor fijo.
 
     return (
         <>
-            {/* 1. HEADER / HERO (Añadir REF para medir la altura del punto de quiebre) */}
+            {/* 1. HEADER / HERO */}
             <header id="header" ref={heroRef}>
                 <section className="hero">
                     <div className="video-container">
@@ -73,13 +90,13 @@ const HomePage = () => {
                 </section>
             </header>
 
-            {/* 2. NAVIGATION BAR (ENVUELTA con REF para aplicar el estilo sticky) */}
-            <div ref={navWrapperRef}>
+            {/* 2. NAVIGATION BAR (Wrapper con REF para manipular su clase) */}
+            <div ref={navBarRef}>
                 <NavigationBar/>
             </div>
 
-            {/* Contenido principal */}
-            <section className="content">
+            {/* 3. Contenido principal (AÑADIR REF AQUÍ) */}
+            <section className="content" ref={contentRef}>
                 <div className="text">
                     <br/>
                     <h1> Bienvenido a Thera, la plataforma para renta de autos entre personas más grande de
@@ -90,7 +107,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Search Bar */}
             <section className="searchBar">
                 <div className="searchBar-container">
                     <form className="search-form" action="/car-search.html" method="GET">
@@ -102,7 +118,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Car Options Slider (Carrusel) */}
             <section className="carOptions">
                 <h2>Autos populares para alquilar</h2>
                 <div className="carOptionsCarousel-container">
@@ -115,7 +130,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Info Section (About Us y FAQ resumido) */}
             <section className="infoSection">
                 <div className="infoSection-container">
                     <div className="col-aboutUs">
@@ -145,7 +159,6 @@ const HomePage = () => {
                     <div className="col-faq">
                         <h2>Preguntas Frecuentes</h2>
 
-                        {/* Implementación de FAQ con la estructura original */}
                         <div className="faq-item">
                             <input className="faq-toggle" id="faq1" name="faq1" type="checkbox"/>
                             <label className="faq-question" htmlFor="faq1">¿Cuales son los requisitos para alquilar un
@@ -196,7 +209,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Join Us Section */}
             <section className="joinUs">
                 <div className="joinUs-container">
                     <h3>¿Listo para unirte a Thera?</h3>

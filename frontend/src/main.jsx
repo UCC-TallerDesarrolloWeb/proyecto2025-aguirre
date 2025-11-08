@@ -14,11 +14,11 @@ import CarSearchPage from '@pages/CarSearchPage';
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <AppLayout/>, // <--- A menudo el error está aquí si el nombre no coincide
+        element: <AppLayout/>,
         children: [
-            {index: true, element: <HomePage/>}, // index.html
-            {path: 'about-us.html', element: <AboutPage/>}, // about-us.html
-            {path: 'faq.html', element: <FAQPage/>}, // faq.html
+            {index: true, element: <HomePage/>},
+            {path: 'about-us.html', element: <AboutPage/>},
+            {path: 'faq.html', element: <FAQPage/>},
         ],
     },
     {

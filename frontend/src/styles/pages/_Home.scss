@@ -49,18 +49,25 @@
   z-index: 1;
 }
 
-/* --- ESTILO PARA NAVIGATION BAR STICKY DINÁMICO --- */
-.nav-sticky {
-  position: fixed; /* Esto la saca del flujo y la fija en la pantalla */
-  top: 0;
-  width: 100%;
-  z-index: 2000; /* Alto z-index para que esté sobre el contenido */
-
   // Asegurar que la barra de navegación que está dentro del wrapper ocupe todo el ancho
   #navigationBar {
+    position: relative;
     width: 100%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
+
+.nav-sticky {
+  /* El wrapper que se vuelve fijo. Asegúrate de que el contenedor de la Nav Bar tenga 100% de ancho */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2000;
+}
+
+/* --- ESTILO PARA VISIBILIDAD DE NAVIGATION BAR --- */
+// Esta clase se aplica dinámicamente cuando el usuario scrollea
+.nav-visible {
+  top: 0 !important; /* Mueve la barra al tope de la vista */
 }
 
 /* --- SECCIÓN DE CONTENIDO GENERAL --- */
