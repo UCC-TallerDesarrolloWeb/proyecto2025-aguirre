@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import Button from '@components/Button';
 import CarCard from '@components/CarCard';
 import {MOCK_VEHICLES} from '@api/vehiclesApi.js'; // Opcional, si quieres usar la lista sin un 'fetch'
-import whiteLogo from '@assets/white-logo.png'; // Logo desde assets
+import whiteLogo from '../../public/white-logo.png'; // Logo desde assets
 
 const HomePage = () => {
     // Simulación del código de funciones.js para manejo de fechas (Usando Hooks)

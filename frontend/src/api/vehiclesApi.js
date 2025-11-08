@@ -1,3 +1,12 @@
+// Import imagenes vehiculos
+import jeepCherokeeImg from '@assets/Jeep/Jeep Cherokee (1).jpg';
+import vwTaosImg from '@assets/VW Taos/Taos (1).jpg';
+import audiRS3Img from '@assets/Audi/RS3 (1).jpg';
+import fordF150RaptorImg from '@assets/Ford/Raptor (1).jpg';
+import fiatCronosImg from '@assets/Fiat/Cronos (1).jpg';
+import fordEcosportImg from '@assets/Ford/Ecosport (1).jpg';
+import toyotaYarisImg from '@assets/Toyota/Yaris (1).jpg';
+
 // Mock de la data de utils.js
 export const MOCK_VEHICLES = [
     {
@@ -10,7 +19,7 @@ export const MOCK_VEHICLES = [
         location: "Palermo, CABA",
         specs: "Automático | 5 Asientos | Aire Acondicionado",
         features: ["auto", "ac"],
-        imageUrl: "/assets/Jeep/Jeep Cherokee (1).jpg",
+        imageUrl: jeepCherokeeImg,
         id: 1
     },
     {
@@ -23,7 +32,7 @@ export const MOCK_VEHICLES = [
         location: "Villa Crespo, CABA",
         specs: "Automático | 5 Asientos | GPS",
         features: ["auto", "gps"],
-        imageUrl: "/assets/VW Taos/Taos (1).jpg",
+        imageUrl: vwTaosImg,
         id: 2
     },
     {
@@ -36,7 +45,7 @@ export const MOCK_VEHICLES = [
         location: "Palermo, CABA",
         specs: "Automático | 4 Asientos | Aire Acondicionado",
         features: ["auto", "ac"],
-        imageUrl: "/assets/Audi/RS3 (1).jpg",
+        imageUrl: audiRS3Img,
         id: 3
     },
     {
@@ -49,7 +58,7 @@ export const MOCK_VEHICLES = [
         location: "Cordoba, Cordoba",
         specs: "Automático | 5 Asientos | Aire Acondicionado",
         features: ["auto", "ac", "gps"],
-        imageUrl: "/assets/Ford/Raptor (1).jpg",
+        imageUrl: fordF150RaptorImg,
         id: 4
     },
     {
@@ -62,7 +71,7 @@ export const MOCK_VEHICLES = [
         location: "Almagro, CABA",
         specs: "Manual | 5 Asientos | Aire Acondicionado",
         features: ["ac"],
-        imageUrl: "/assets/Fiat/Cronos (1).jpg",
+        imageUrl: fiatCronosImg,
         id: 5
     },
     {
@@ -75,7 +84,7 @@ export const MOCK_VEHICLES = [
         location: "Cordoba, Cordoba",
         specs: "Manual | 5 Asientos | Aire Acondicionado",
         features: ["ac"],
-        imageUrl: "/assets/Ford/Ecosport (1).jpg",
+        imageUrl: fordEcosportImg,
         id: 6
     },
     {
@@ -88,7 +97,7 @@ export const MOCK_VEHICLES = [
         location: "Belgrano, CABA",
         specs: "Manual | 2 Asientos | Aire Acondicionado",
         features: ["ac"],
-        imageUrl: "/assets/Toyota/Yaris (1).jpg",
+        imageUrl: toyotaYarisImg,
         id: 7
     }
 ];

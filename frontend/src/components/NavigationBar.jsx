@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import offsetLogo from '@assets/offset-logo.png'; // Usando alias
+import offsetLogo from '../../public/offset-logo.png'; // Usando alias
 
 const NavigationBar = () => {
     return (

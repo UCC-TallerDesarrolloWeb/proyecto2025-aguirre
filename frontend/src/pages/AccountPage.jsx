@@ -92,7 +92,7 @@ const AccountPage = () => {
             <div className="auth-container">
                 {/* LOGO DE THERA */}
                 <div className="auth-logo">
-                    <img src={isLoginPanel ? "/assets/black-logo.png" : "/assets/black-logo.png"} alt="Thera logo"/>
+                    <img src={isLoginPanel ? "/black-logo.png" : "/assets/black-logo.png"} alt="Thera logo"/>
                 </div>
 
                 {/* PESTAÑAS */}
