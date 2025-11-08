@@ -1,34 +1,64 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
+import NavigationBar from '@components/NavigationBar';
 import {Link} from 'react-router-dom';
 import Button from '@components/Button';
 import CarCard from '@components/CarCard';
-import {MOCK_VEHICLES} from '@api/vehiclesApi.js'; // Opcional, si quieres usar la lista sin un 'fetch'
-import whiteLogo from '../../public/white-logo.png'; // Logo desde assets
+import {MOCK_VEHICLES} from '@api/vehiclesApi'; // Uso del mock data
+import whiteLogo from '../../public/white-logo.png'; // Logo desde public
 
 const HomePage = () => {
-    // Simulación del código de funciones.js para manejo de fechas (Usando Hooks)
+    // 1. Refs para la lógica de scroll
+    const navWrapperRef = useRef(null);
+    const heroRef = useRef(null);
+
+    // Solo tomamos 7 autos populares para el carrusel
+    const popularCars = MOCK_VEHICLES.slice(0, 7);
+
+    // --- Lógica de Manejo de Fechas (functions.js) ---
     useEffect(() => {
-        // Implementa aquí la lógica de validación de fechas de functions.js usando refs o estado
         const today = new Date().toISOString().split('T')[0];
         const dateStartInput = document.getElementById('searchBar_dateStart');
-        const dateEndInput = document.getElementById('searchBar_dateEnd');
+        // const dateEndInput = document.getElementById('searchBar_dateEnd'); // No se usa aquí, solo se define
 
         if (dateStartInput) {
             if (!dateStartInput.value) dateStartInput.value = today;
             dateStartInput.setAttribute('min', today);
         }
+        // Nota: La lógica de restricción de dateEnd se aplicaría en el 'onChange' en un escenario completo de React.
+    }, []);
 
-        // El resto de la lógica de functions.js/date handling se migra aquí.
+    // --- Lógica de Sticky Navigation (Requisito: useEffect, useRef) ---
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!navWrapperRef.current || !heroRef.current) return;
 
-    }, []); // useEffect para ejecutar la lógica solo una vez al cargar
+            // Altura total del Hero (video + logo)
+            const heroHeight = heroRef.current.offsetHeight;
 
-    // Solo tomamos 7 autos populares para el carrusel
-    const popularCars = MOCK_VEHICLES.slice(0, 7);
+            // Si el scroll vertical supera esa altura
+            if (window.scrollY > heroHeight) {
+                // Añadir clase definida en SASS para position: fixed
+                navWrapperRef.current.classList.add('nav-sticky');
+            } else {
+                // Remover clase
+                navWrapperRef.current.classList.remove('nav-sticky');
+            }
+        };
+
+        // Escuchar el evento de scroll
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Ejecutar al inicio
+
+        // Función de limpieza al desmontar el componente
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <>
-            {/* Contenido del <header> (Video Opener) */}
-            <header id="header">
+            {/* 1. HEADER / HERO (Añadir REF para medir la altura del punto de quiebre) */}
+            <header id="header" ref={heroRef}>
                 <section className="hero">
                     <div className="video-container">
                         <iframe
@@ -43,16 +73,27 @@ const HomePage = () => {
                 </section>
             </header>
 
-            {/* Contenido principal (Section content) */}
+            {/* 2. NAVIGATION BAR (ENVUELTA con REF para aplicar el estilo sticky) */}
+            <div ref={navWrapperRef}>
+                <NavigationBar/>
+            </div>
+
+            {/* Contenido principal */}
             <section className="content">
-                {/* ... Texto H1 y P ... */}
+                <div className="text">
+                    <br/>
+                    <h1> Bienvenido a Thera, la plataforma para renta de autos entre personas más grande de
+                        Argentina.</h1>
+                    <p> ¡Con Thera podrás alquilar vehículos por la cantidad de tiempo que necesites! Ya sea para un
+                        viaje que
+                        tengas programado o quieras probar un vehículo en particular.</p>
+                </div>
             </section>
 
             {/* Search Bar */}
             <section className="searchBar">
                 <div className="searchBar-container">
                     <form className="search-form" action="/car-search.html" method="GET">
-                        {/* Inputs y Botón (Reemplazando <button> por el componente genérico) */}
                         <input name="location" placeholder="Ciudad, Barrio o Aeropuerto" required type="text"/>
                         <input id="searchBar_dateStart" type="date" placeholder="Fecha de Inicio"/>
                         <input id="searchBar_dateEnd" type="date" placeholder="Fecha de Fin"/>
@@ -75,7 +116,85 @@ const HomePage = () => {
             </section>
 
             {/* Info Section (About Us y FAQ resumido) */}
-            {/* ... Contenido de infoSection con Links y Button ... */}
+            <section className="infoSection">
+                <div className="infoSection-container">
+                    <div className="col-aboutUs">
+                        <section id="thera-resumen">
+                            <h2>Acerca de Thera</h2>
+                            <p>
+                                ¡Te presentamos <strong>Thera</strong>, la plataforma que está transformando la forma en
+                                que los
+                                argentinos vemos el auto!
+                            </p>
+
+                            <p>
+                                Thera es el <em>marketplace</em> de <em>carsharing</em> entre personas, seguro y
+                                confiable. Si tenés
+                                un auto, podés publicarlo y <strong>ganar dinero</strong> cuando no lo uses. Si
+                                necesitás moverte,
+                                podés alquilar el vehículo perfecto de un particular <strong>cerca de tu casa y a un
+                                precio
+                                justo</strong>.
+                            </p>
+
+                        </section>
+
+                        <Link className="aboutUs-button" to="/about-us.html">Conoce más sobre nosotros</Link>
+                    </div>
+
+                    <div className="col-faq">
+                        <h2>Preguntas Frecuentes</h2>
+
+                        {/* Implementación de FAQ con la estructura original */}
+                        <div className="faq-item">
+                            <input className="faq-toggle" id="faq1" name="faq1" type="checkbox"/>
+                            <label className="faq-question" htmlFor="faq1">¿Cuales son los requisitos para alquilar un
+                                auto?</label>
+                            <div className="faq-answer">
+                                <p>¡Es muy sencillo! Solo tienes que ser mayor de 18 años, tener una licencia de
+                                    conducir vigente y
+                                    una tarjeta de crédito a tu nombre.</p>
+                            </div>
+                        </div>
+
+                        <div className="faq-item">
+                            <input className="faq-toggle" id="faq2" name="faq2" type="checkbox"/>
+                            <label className="faq-question" htmlFor="faq2">¿Puedo usar mi tarjeta de débito para
+                                pagar?</label>
+                            <div className="faq-answer">
+                                <p>¡Sí! El alquiler del vehículo puedes pagarlo con tarjeta de débito o crédito. Sin
+                                    embargo, ten en
+                                    cuenta que el depósito de seguridad sí requiere una tarjeta de crédito.</p>
+                            </div>
+                        </div>
+
+                        <div className="faq-item">
+                            <input className="faq-toggle" id="faq3" name="faq3" type="checkbox"/>
+                            <label className="faq-question" htmlFor="faq3">¿Existe algún límite de kilómetros?</label>
+                            <div className="faq-answer">
+                                <p>¡Depende del dueño del vehículo! Muchos propietarios ofrecen kilometraje ilimitado en
+                                    sus
+                                    anuncios. Para estar completamente seguro, te recomendamos revisar los términos de
+                                    cada
+                                    publicación antes de reservar.</p>
+                            </div>
+                        </div>
+
+                        <div className="faq-item">
+                            <input className="faq-toggle" id="faq4" name="faq3" type="checkbox"/>
+                            <label className="faq-question" htmlFor="faq4">¿Qué pasa si tengo que cancelar mi
+                                reserva?</label>
+                            <div className="faq-answer">
+                                <p>Nuestra política de cancelación es muy flexible: puedes cancelar gratis hasta 48
+                                    horas antes de
+                                    la hora de recogida. Si la cancelación se realiza después de ese plazo, podría
+                                    aplicarse una
+                                    penalización o retención de la tarifa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* Join Us Section */}
             <section className="joinUs">
@@ -85,9 +204,9 @@ const HomePage = () => {
                         auto.</p>
 
                     <div className="joinUs-buttons">
-                        <Button variant="primary">¡Alquila tu auto y gana!</Button>
+                        <Button variant="primary" type="button">¡Alquila tu auto y gana!</Button>
                         <Link to="/car-search.html">
-                            <Button variant="secondary">Alquilar un auto</Button>
+                            <Button variant="secondary" type="button">Alquilar un auto</Button>
                         </Link>
                     </div>
                 </div>

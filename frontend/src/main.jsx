@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <AppLayout/>, // <--- A menudo el error está aquí si el nombre no coincide
         children: [
-            {index: true, element: <HomePage  />}, // index.html
+            {index: true, element: <HomePage/>}, // index.html
             {path: 'about-us.html', element: <AboutPage/>}, // about-us.html
             {path: 'faq.html', element: <FAQPage/>}, // faq.html
             {path: 'car-search.html', element: <CarSearchPage/>}, // car-search.html
