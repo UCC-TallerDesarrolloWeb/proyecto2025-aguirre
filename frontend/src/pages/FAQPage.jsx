@@ -1,7 +1,12 @@
 import React from 'react';
+import NavigationBar from '@components/NavigationBar';
 
 const FAQPage = () => {
     return (
+        <>
+            {/* 1. RENDERIZAR NAV BAR FIJA */}
+            <NavigationBar />
+
         <div className="content-page-wrapper">
             <div className="content-page-container">
 
@@ -147,6 +152,7 @@ const FAQPage = () => {
 
             </div>
         </div>
+        </>
     );
 };
 

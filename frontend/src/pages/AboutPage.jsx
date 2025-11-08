@@ -1,7 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import NavigationBar from '@components/NavigationBar';
 
 const AboutPage = () => {
     return (
+        <>
+            {/* 1. RENDERIZAR NAV BAR FIJA */}
+            <NavigationBar/>
+
         <div className="content-page-wrapper">
             <div className="content-page-container">
 
@@ -99,6 +105,7 @@ const AboutPage = () => {
                 </section>
             </div>
         </div>
+        </>
     );
 };
 
