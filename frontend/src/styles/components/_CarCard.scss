@@ -1,0 +1,110 @@
+@use '../base/variables' as var;
+
+/* --- ESTILOS PARA CARRUSEL (HomePage) --- */
+
+.carCard {
+  flex: 0 0 300px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  scroll-snap-align: start;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.card-details {
+  color: var.$primary-color;
+  font-size: 0.95rem;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.card-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var.$primary-color;
+  margin-bottom: 15px;
+}
+
+
+/* --- ESTILOS PARA RESULTADOS DE BÚSQUEDA (CarSearchPage) --- */
+
+.search-car-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.card-thumbnail {
+  width: 220px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.car-title {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.daily-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var.$accent-color;
+  display: block;
+}
+
+.card-price-info {
+  text-align: right;
+}
+
+.reserve-btn {
+  padding: 8px 15px;
+}
+
+.car-rating {
+  margin: 5px 0 10px 0;
+}
+
+.car-specs {
+  font-size: 0.9rem;
+  color: var.$text-color-light;
+  margin-bottom: 5px;
+}
+
+.car-location {
+  font-size: 0.9rem;
+  color: var.$text-color-light;
+}

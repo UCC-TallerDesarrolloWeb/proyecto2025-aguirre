@@ -1,0 +1,172 @@
+@use '../base/variables' as var;
+
+.search-results-page {
+  display: flex;
+  height: calc(100vh - 80px); /* Altura total de la vista menos un estimado del header */
+  width: 100%;
+}
+
+/* --- BARRA DE BÚSQUEDA COMPACTA EN HEADER --- */
+.compact-search-form {
+  flex-grow: 1;
+  max-width: 650px;
+  margin: 0 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: none;
+
+  .search-input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    border: none;
+    border-right: 1px solid #eee;
+  }
+
+  .date-input:last-of-type {
+    border-right: none;
+  }
+
+  .location-input {
+    border-radius: 0;
+  }
+
+  .search-button {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    border-radius: 0;
+  }
+}
+
+/* --- CONTROLES DE RESULTADOS (FILTROS Y ORDENAR) --- */
+.controls-bar-split {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.control-group {
+  position: relative;
+  z-index: 500;
+}
+
+.toggle-control-btn {
+  padding: 10px 15px;
+  background-color: white;
+  color: var.$primary-color;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &:hover {
+    background-color: var.$light-bg;
+    border-color: #bbb;
+  }
+
+  .icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+}
+
+.control-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  min-width: 250px;
+  max-width: 300px;
+  z-index: 600;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.filter-group {
+  margin-bottom: 15px;
+
+  h4 {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: var.$text-color-dark;
+    font-weight: bold;
+  }
+}
+
+.filter-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.control-panel hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 15px 0;
+}
+
+.sort-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* --- COLUMNA DE LISTA --- */
+.car-list-column {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+}
+
+.results-list {
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+
+.no-results-message {
+  padding: 20px;
+  text-align: center;
+}
+
+/* --- COLUMNA DEL MAPA --- */
+.map-column {
+  flex: 1;
+  position: sticky;
+  top: 0;
+  height: 100%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+
+  #map-container {
+    width: 100%;
+    height: 100%;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+  }
+}

@@ -1,0 +1,199 @@
+@use '../base/variables' as var;
+
+/* --- VIDEO HERO --- */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.video-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  z-index: -1;
+
+  iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 120%;
+    min-height: 120%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+}
+
+.logo-container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+/* --- SECCIÓN DE CONTENIDO GENERAL --- */
+.content h1 {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.content p {
+  text-align: center;
+}
+
+/* --- BARRA DE BÚSQUEDA PRINCIPAL --- */
+.searchBar-container {
+  left: 50%;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 700px;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+
+  input {
+    flex-grow: 1;
+    padding: 15px 20px;
+    border: 2px solid #ddd;
+    border-right: none;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.location-input {
+  border-radius: 8px 0 0 8px;
+  border-right: 2px solid #ddd;
+}
+
+.date-input {
+  border-radius: 0;
+  border-right: 2px solid #ddd;
+  color: #888;
+}
+
+/* --- CARRUSEL DE OPCIONES DE COCHE --- */
+.carOptions {
+  padding: 40px;
+  margin: 0;
+
+  h2 {
+    margin: 0 50px 25px 50px;
+    font-size: 1.8rem;
+    color: var.$primary-color;
+  }
+}
+
+.carOptionsCarousel-container {
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap;
+  cursor: grab;
+  user-select: none;
+  padding-bottom: 20px;
+  scroll-snap-type: x mandatory;
+  padding-left: 50px;
+  padding-right: 50px;
+
+  &.active {
+    cursor: grabbing;
+  }
+}
+
+/* --- SECCIÓN DE INFORMACIÓN (ACERCA DE, FAQ) --- */
+.infoSection {
+  padding: 60px 50px;
+  background-color: var.$light-bg;
+
+  &-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+}
+
+.col-aboutUs, .col-faq {
+  flex: 1;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.col-aboutUs {
+  line-height: 1.6;
+  color: var.$primary-color;
+
+  p {
+    padding: 10px;
+  }
+}
+
+/* --- SECCIÓN JOIN US --- */
+.joinUs {
+  background-color: white;
+  color: var.$primary-color;
+  padding: 80px 20px;
+  text-align: center;
+
+  &-container {
+    max-width: 700px;
+    margin: 0 auto;
+
+    h3 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: var.$primary-color;
+    }
+  }
+}
