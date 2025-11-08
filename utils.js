@@ -42,7 +42,7 @@ const vehiculos = [
         rating: 4.8,
         reviews: 35,
         distance: 1.5,
-        location: "Microcentro, CABA",
+        location: "Cordoba, Cordoba",
         specs: "Automático | 5 Asientos | Aire Acondicionado",
         features: ["auto", "ac", "gps"],
         imageUrl: "Imagenes/Ford/Raptor (1).jpg"
@@ -65,8 +65,7 @@ const vehiculos = [
         price: 10000,
         rating: 4.0,
         reviews: 28,
-        distance: 7.8,
-        location: "Villa Urquiza, CABA",
+        distance: 7.8, location: "Cordoba, Cordoba",
         specs: "Manual | 5 Asientos | Aire Acondicionado",
         features: ["ac"], imageUrl: "Imagenes/Ford/Ecosport (1).jpg"
     },
@@ -125,19 +124,40 @@ const createCarCardHTML = (car) => {
 
 /**
  * Descripción: Renderiza la lista completa de vehículos dentro del contenedor '.results-list'.
- * Si la lista está vacía, muestra un mensaje.
+ * Si la lista está vacía, muestra un mensaje inteligente basado en los filtros.
  * @method renderCars
  * @param {Array<object>} carList - Lista de objetos de vehículos a mostrar en la interfaz.
+ * @param {string} [locationQuery] - (Opcional) El término de búsqueda de ubicación que se utilizó.
  * @return {void}
  */
-const renderCars = (carList) => {
+const renderCars = (carList, locationQuery = '') => {
     const resultsList = document.querySelector('.results-list');
     if (!resultsList) return;
 
     resultsList.innerHTML = '';
 
     if (carList.length === 0) {
-        resultsList.innerHTML = '<p style="padding: 20px; text-align: center;">No se encontraron autos con los filtros seleccionados.</p>';
+        const query = locationQuery.trim();
+
+        // Comprobamos si el motivo de 0 resultados fue una búsqueda por ubicación
+        if (query.length > 0) {
+
+            // ANÁLISIS ADICIONAL: Verificamos si la ubicación SÍ existe en nuestra
+            // base de datos, pero los *otros filtros* (precio, tipo) fallaron.
+            const locationExistsInDB = vehiculos.some(car => car.location.toLowerCase().includes(query.toLowerCase()));
+
+            if (locationExistsInDB) {
+                // La ubicación existe, pero los filtros (precio, tipo, etc.) no coincidieron
+                resultsList.innerHTML = `<p class="no-results-message">No se encontraron autos con los filtros seleccionados en "${locationQuery}"</p>`;
+            } else {
+                // La ubicación NO existe en nuestra base de datos.
+                resultsList.innerHTML = `<p class="no-results-message">No hay autos listados en la localidad "${locationQuery}"</p>`;
+            }
+
+        } else {
+            // Mensaje genérico si no se buscó por ubicación (ej: solo se filtró por precio/tipo y no hubo match)
+            resultsList.innerHTML = '<p class="no-results-message">No se encontraron autos con los filtros seleccionados</p>';
+        }
         return;
     }
 
@@ -291,7 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsList = document.querySelector('.results-list');
     const searchForm = document.querySelector('.compact-search-form');
     const locationSearchInput = document.querySelector('.compact-search-form .location-input');
-    // ...
+    const resultsTitleH1 = document.querySelector('.car-list-column h1');
+    const defaultResultsTitle = resultsTitleH1 ? resultsTitleH1.textContent : "Autos disponibles";
 
     // Si no estamos en car-search.html, solo inicializa la vista de account.html si existe
     if (!filtersPanel || !sortPanel) {
@@ -364,6 +385,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    /**
+     * Descripción: Actualiza el H1 de la lista de resultados con la ubicación buscada.
+     * Si no hay ubicación, restaura el título por defecto.
+     * @method updateResultsTitle
+     * @param {string} locationName - El nombre de la localidad a mostrar.
+     * @return {void}
+     */
+    const updateResultsTitle = (locationName) => {
+        if (!resultsTitleH1) return; // Salida segura si el H1 no existe
+
+        if (locationName && locationName.trim().length > 0) {
+            // Capitalizamos la primera letra para que se vea mejor
+            const formattedName = locationName.charAt(0).toUpperCase() + locationName.slice(1).toLowerCase();
+            resultsTitleH1.textContent = `Autos disponibles en ${formattedName}`;
+        } else {
+            // Si la búsqueda está vacía, restauramos el título original
+            resultsTitleH1.textContent = defaultResultsTitle;
+        }
+    };
 
     /**
      * Descripción: Lee el parámetro 'location' de la URL al cargar la página.
@@ -379,6 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
             locationSearchInput.value = locationParam;
             applyFilters();
         } else {
+            updateResultsTitle('');
             renderCars(vehiculos);
         }
     };
@@ -390,7 +431,11 @@ document.addEventListener('DOMContentLoaded', () => {
      * @return {void}
      */
     const applyFilters = () => {
-        const searchLocationTerm = locationSearchInput.value.toLowerCase().trim();
+        const searchLocationTerm = locationSearchInput.value; // <-- Obtenemos el valor original (con mayúsculas) para mostrarlo
+        const normalizedLocation = searchLocationTerm.toLowerCase().trim();
+
+        updateResultsTitle(searchLocationTerm);
+
         const typeCheckboxes = filtersPanel.querySelectorAll('input[name="type"]:checked, input[name="hatchback"]:checked');
         const selectedTypes = Array.from(typeCheckboxes).map(cb => cb.value);
         const maxPrice = parseInt(priceRangeInput.value, 10);
@@ -399,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const newlyFilteredVehicles = vehiculos.filter(car => {
             // Lógica de Filtrado...
-            if (searchLocationTerm.length > 0 && !car.location.toLowerCase().includes(searchLocationTerm)) return false;
+            if (normalizedLocation.length > 0 && !car.location.toLowerCase().includes(normalizedLocation)) return false;
             const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(car.type);
             if (!typeMatch) return false;
             if (car.price > maxPrice) return false;
@@ -415,7 +460,9 @@ document.addEventListener('DOMContentLoaded', () => {
             vehiclesToRender = sortVehicles(vehiclesToRender, currentSortValue);
         }
 
-        renderCars(vehiclesToRender);
+        // Pasamos el término de búsqueda original (ej: "Mendoza") a renderCars
+        // para que pueda mostrar el mensaje de error correctamente.
+        renderCars(vehiclesToRender, searchLocationTerm);
     };
 
     /**
@@ -437,6 +484,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         filteredVehiclesState = [...vehiculos];
         currentSortValue = 'none';
+
+        updateResultsTitle('');
 
         renderCars(vehiculos);
     };

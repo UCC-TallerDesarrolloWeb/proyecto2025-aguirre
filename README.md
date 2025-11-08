@@ -36,9 +36,9 @@ auto por días, a la vez que permite a los propietarios obtener ingresos de su v
 
 ## 2. Autores
 
-| Rol              | Nombre y Apellido |
-|:-----------------|:------------------|
-| Desarrollador    | Tomás Aguirre     |
+| Nombre y Apellido|
+|:-----------------|
+| Tomás Aguirre    |
 
 ---
 
