@@ -1,28 +1,86 @@
 import React, {useEffect, useRef, useState} from 'react';
-import NavigationBar from '@components/NavigationBar'; // <-- DEBES IMPORTAR AQUÍ
+import NavigationBar from '@components/NavigationBar';
 import {Link} from 'react-router-dom';
 import Button from '@components/Button';
 import CarCard from '@components/CarCard';
-import {MOCK_VEHICLES} from '@api/vehiclesApi'; // Uso del mock data
+import {MOCK_VEHICLES} from '@api/vehiclesApi';
+
 const whiteLogo = '/white-logo.png';
 
 const HomePage = () => {
     const heroRef = useRef(null);
     const navBarRef = useRef(null);
     const [navHeight, setNavHeight] = useState(0);
-    const contentRef = useRef(null); // Declaración de contentRef
+    const contentRef = useRef(null);
+
+    const todayFormatted = new Date().toISOString().split('T')[0];
+    const MAX_DATE = "2026-12-31"; // Límite superior definido
+
+    // Inicialización del estado de fechas
+    const [startDate, setStartDate] = useState(todayFormatted);
+    const [endDate, setEndDate] = useState(todayFormatted);
 
     const popularCars = MOCK_VEHICLES.slice(0, 7);
 
-    // --- Lógica de Manejo de Fechas (functions.js) ---
-    useEffect(() => {
-        const today = new Date().toISOString().split('T')[0];
-        const dateStartInput = document.getElementById('searchBar_dateStart');
+    // --- Validación y Reseteo ---
+    const handleDateValidation = (currentDate, type) => {
+        // Convertir las fechas a objetos Date para facilitar la comparación
+        const todayDate = new Date(todayFormatted);
+        const maxDate = new Date(MAX_DATE);
+        const inputDate = new Date(currentDate);
 
-        if (dateStartInput) {
-            if (!dateStartInput.value) dateStartInput.value = today;
-            dateStartInput.setAttribute('min', today);
+        // 1. Si la fecha es anterior a hoy O posterior a la fecha máxima
+        if (inputDate < todayDate || inputDate > maxDate) {
+
+            // 2. Resetear la fecha actual a la de hoy
+            if (type === 'start') {
+                setStartDate(todayFormatted);
+                // Si la fecha de fin actual es anterior a hoy, también la reseteamos
+                if (new Date(endDate) < todayDate) {
+                    setEndDate(todayFormatted);
+                }
+                return todayFormatted; // Devolver la fecha válida
+            } else if (type === 'end') {
+                setEndDate(todayFormatted);
+                return todayFormatted; // Devolver la fecha válida
+            }
         }
+        return currentDate; // Devolver la fecha si es válida
+    };
+
+
+    // Handler para la fecha de inicio
+    const handleStartDateChange = (e) => {
+        let newStartDate = e.target.value;
+
+        // 1. Validar y resetear si es necesario
+        newStartDate = handleDateValidation(newStartDate, 'start');
+
+        setStartDate(newStartDate);
+
+        // 2. Asegurar que la fecha de fin no sea anterior a la de inicio
+        if (endDate < newStartDate) {
+            setEndDate(newStartDate);
+        }
+    };
+
+    // Handler para la fecha de fin
+    const handleEndDateChange = (e) => {
+        let newEndDate = e.target.value;
+
+        // 1. Validar y resetear si es necesario
+        newEndDate = handleDateValidation(newEndDate, 'end');
+
+        setEndDate(newEndDate);
+    };
+
+    // --- Lógica de Manejo de Fechas ---
+    useEffect(() => {
+        const dateStartInput = document.getElementById('searchBar_dateStart');
+        if (dateStartInput) {
+            dateStartInput.setAttribute('min', todayFormatted);
+        }
+        // Las restricciones 'max' y la sincronización 'min' se manejan directamente en el JSX y los handlers.
     }, []);
 
     useEffect(() => {
@@ -95,7 +153,7 @@ const HomePage = () => {
                 <NavigationBar/>
             </div>
 
-            {/* 3. Contenido principal (AÑADIR REF AQUÍ) */}
+            {/* 3. Contenido principal */}
             <section className="content" ref={contentRef}>
                 <div className="text">
                     <br/>
@@ -111,8 +169,27 @@ const HomePage = () => {
                 <div className="searchBar-container">
                     <form className="search-form" action="/car-search.html" method="GET">
                         <input name="location" placeholder="Ciudad, Barrio o Aeropuerto" required type="text" maxLength="40"/>
-                        <input id="searchBar_dateStart" type="date" placeholder="Fecha de Inicio"/>
-                        <input id="searchBar_dateEnd" type="date" placeholder="Fecha de Fin"/>
+
+                        {/* FECHA DE INICIO */}
+                        <input
+                            id="searchBar_dateStart"
+                            type="date"
+                            placeholder="Fecha de Inicio"
+                            value={startDate}
+                            // Eliminamos el min/max del JSX para confiar completamente en el handler (Cross-browser validation)
+                            onChange={handleStartDateChange}
+                        />
+
+                        {/* FECHA DE FIN */}
+                        <input
+                            id="searchBar_dateEnd"
+                            type="date"
+                            placeholder="Fecha de Fin"
+                            value={endDate}
+                            min={startDate} // Restricción reactiva
+                            // Eliminamos el min/max del JSX para confiar completamente en el handler (Cross-browser validation)
+                            onChange={handleEndDateChange}
+                        />
                         <Button variant="search" type="submit">Buscar</Button>
                     </form>
                 </div>

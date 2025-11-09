@@ -1,11 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import offsetLogo from '../../public/offset-logo.png';
 
 const NavigationBar = () => {
     const location = useLocation();
-    // Verifica si la ruta actual es la página de búsqueda
     const isSearchPage = location.pathname === '/car-search.html';
+
+    // --- Lógica de Fechas y Validación ---
+    const todayFormatted = new Date().toISOString().split('T')[0];
+    const MAX_DATE = "2026-12-31"; // Límite superior definido
+
+    // Estado para la barra de búsqueda compacta
+    const [compactStartDate, setCompactStartDate] = useState(todayFormatted);
+    const [compactEndDate, setCompactEndDate] = useState(todayFormatted);
+
+    // Función de Validación y Reseteo (Duplicada/Adaptada de HomePage)
+    const handleDateValidation = (currentDate, type) => {
+        const todayDate = new Date(todayFormatted);
+        const maxDate = new Date(MAX_DATE);
+        const inputDate = new Date(currentDate);
+
+        // Si la fecha es anterior a hoy O posterior a la fecha máxima
+        if (inputDate < todayDate || inputDate > maxDate) {
+            return todayFormatted;
+        }
+        return currentDate;
+    };
+
+    const handleCompactStartDateChange = (e) => {
+        let newStartDate = e.target.value;
+
+        // 1. Validar y resetear si es necesario
+        newStartDate = handleDateValidation(newStartDate, 'start');
+
+        setCompactStartDate(newStartDate);
+
+        // 2. Asegurar que la fecha de fin no sea anterior a la de inicio
+        if (compactEndDate < newStartDate) {
+            setCompactEndDate(newStartDate);
+        }
+    };
+
+    const handleCompactEndDateChange = (e) => {
+        let newEndDate = e.target.value;
+
+        // 1. Validar y resetear si es necesario
+        newEndDate = handleDateValidation(newEndDate, 'end');
+
+        setCompactEndDate(newEndDate);
+    };
+
+    // Efecto para asegurar que la fecha minima de inicio este bien
+    useEffect(() => {
+        if (!isSearchPage) return;
+    }, [isSearchPage]);
+
 
     return (
         <nav id="navigationBar">
@@ -22,17 +71,40 @@ const NavigationBar = () => {
                     <input autocomplete="off"
                            className="location-input search-input"
                            id="location-search-input"
-                           maxlength="40"
+                           maxLength="100"
                            placeholder="Ciudad, Barrio o Aeropuerto"
                            type="text"
                     />
-                    {/* Nota: En React real, la lógica de autocompletado requeriría un componente o hook */}
                     <div className="autocomplete-items" id="autocomplete-list"></div>
 
-                    <label><input className="date-input search-input" id="searchBar_dateStart" placeholder="Fecha de Inicio"
-                                  type="date" defaultValue="" /> </label>
-                    <label><input className="date-input search-input" id="searchBar_dateEnd" placeholder="Fecha de Fin" type="date"
-                                  defaultValue="" /></label>
+                    {/* CAMPO FECHA DE INICIO (Compacta) */}
+                    <label>
+                        <input
+                            className="date-input search-input"
+                            id="searchBar_dateStart_compact" // Usar ID único
+                            placeholder="Fecha de Inicio"
+                            type="date"
+                            value={compactStartDate}
+                            min={todayFormatted}
+                            max={MAX_DATE}
+                            onChange={handleCompactStartDateChange}
+                        />
+                    </label>
+
+                    {/* CAMPO FECHA DE FIN (Compacta) */}
+                    <label>
+                        <input
+                            className="date-input search-input"
+                            id="searchBar_dateEnd_compact" // Usar ID único
+                            placeholder="Fecha de Fin"
+                            type="date"
+                            value={compactEndDate}
+                            min={compactStartDate}
+                            max={MAX_DATE}
+                            onChange={handleCompactEndDateChange}
+                        />
+                    </label>
+
                     <button className="search-button" type="submit">Buscar</button>
                 </form>
             )}
