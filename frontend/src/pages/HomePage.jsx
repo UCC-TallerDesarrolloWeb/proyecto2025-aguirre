@@ -110,7 +110,7 @@ const HomePage = () => {
             <section className="searchBar">
                 <div className="searchBar-container">
                     <form className="search-form" action="/car-search.html" method="GET">
-                        <input name="location" placeholder="Ciudad, Barrio o Aeropuerto" required type="text"/>
+                        <input name="location" placeholder="Ciudad, Barrio o Aeropuerto" required type="text" maxLength="40"/>
                         <input id="searchBar_dateStart" type="date" placeholder="Fecha de Inicio"/>
                         <input id="searchBar_dateEnd" type="date" placeholder="Fecha de Fin"/>
                         <Button variant="search" type="submit">Buscar</Button>
