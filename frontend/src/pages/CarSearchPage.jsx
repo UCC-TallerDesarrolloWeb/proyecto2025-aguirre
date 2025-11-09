@@ -192,14 +192,11 @@ const CarSearchPage = () => {
         <main className="search-results-page">
             <div className="car-list-column">
 
-                {/* BARRA DE BÚSQUEDA COMPACTA EN NAVIGATION BAR */}
-                {/* Nota: Este formulario está en NavigationBar.jsx, si lo necesitas en el H1 de la lista, migra el formulario de la nav-bar aquí. */}
-
                 {/* CONTROLES DE FILTRO Y ORDENAR */}
                 <div className="controls-bar-split">
                     <div className="control-group">
                         <button className="toggle-control-btn" onClick={() => setIsSortOpen(!isSortOpen)}>
-                            <span className="icon">⇅</span> Ordenar por
+                            <span className="icon">⇅</span>Ordenar por
                         </button>
                         <div className={`control-panel ${isSortOpen ? '' : 'hidden'}`} id="sort-panel">
                             <div className="filter-group">
@@ -222,7 +219,7 @@ const CarSearchPage = () => {
 
                     <div className="control-group">
                         <button className="toggle-control-btn" onClick={() => setIsFiltersOpen(!isFiltersOpen)}>
-                            <span className="icon">⚙️</span> Filtros
+                            <span className="icon">▾</span>Filtros
                         </button>
                         <div className={`control-panel ${isFiltersOpen ? '' : 'hidden'}`} id="filters-panel">
 

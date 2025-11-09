@@ -56,7 +56,7 @@ export const MOCK_VEHICLES = [
         reviews: 35,
         distance: 1.5,
         location: "Cordoba, Cordoba",
-        specs: "Automático | 5 Asientos | Aire Acondicionado",
+        specs: "Automático | 5 Asientos | Aire Acondicionado | GPS",
         features: ["auto", "ac", "gps"],
         imageUrl: fordF150RaptorImg,
         id: 4
