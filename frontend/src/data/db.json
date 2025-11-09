@@ -1,0 +1,114 @@
+{
+  "vehiculos": [
+    {
+      "title": "Jeep Cherokee 2020",
+      "type": "suv",
+      "price": 18000,
+      "rating": 4.8,
+      "reviews": 20,
+      "distance": 5.2,
+      "location": "Palermo, CABA",
+      "specs": "Automático | 5 Asientos | Aire Acondicionado",
+      "features": [
+        "auto",
+        "ac"
+      ],
+      "imageUrl": "/assets/Jeep/Jeep Cherokee (1).jpg",
+      "id": 1
+    },
+    {
+      "title": "VW Taos 2023",
+      "type": "suv",
+      "price": 11500,
+      "rating": 4.5,
+      "reviews": 12,
+      "distance": 2.1,
+      "location": "Villa Crespo, CABA",
+      "specs": "Automático | 5 Asientos | GPS",
+      "features": [
+        "auto",
+        "gps"
+      ],
+      "imageUrl": "/assets/VW Taos/Taos (1).jpg",
+      "id": 2
+    },
+    {
+      "title": "Audi RS3 Sedan 2023",
+      "type": "sedan",
+      "price": 18000,
+      "rating": 4.5,
+      "reviews": 15,
+      "distance": 5.2,
+      "location": "Palermo, CABA",
+      "specs": "Automático | 4 Asientos | Aire Acondicionado",
+      "features": [
+        "auto",
+        "ac"
+      ],
+      "imageUrl": "/assets/Audi/RS3 (1).jpg",
+      "id": 3
+    },
+    {
+      "title": "Ford F-150 Raptor",
+      "type": "suv",
+      "price": 25000,
+      "rating": 4.8,
+      "reviews": 35,
+      "distance": 1.5,
+      "location": "Cordoba, Cordoba",
+      "specs": "Automático | 5 Asientos | Aire Acondicionado | GPS",
+      "features": [
+        "auto",
+        "ac",
+        "gps"
+      ],
+      "imageUrl": "/assets/Ford/Raptor (1).jpg",
+      "id": 4
+    },
+    {
+      "title": "Fiat Cronos 2022",
+      "type": "sedan",
+      "price": 9000,
+      "rating": 4.1,
+      "reviews": 50,
+      "distance": 3.5,
+      "location": "Almagro, CABA",
+      "specs": "Manual | 5 Asientos | Aire Acondicionado",
+      "features": [
+        "ac"
+      ],
+      "imageUrl": "/assets/Fiat/Cronos (1).jpg",
+      "id": 5
+    },
+    {
+      "title": "Ford Ecosport 2019",
+      "type": "suv",
+      "price": 10000,
+      "rating": 4.0,
+      "reviews": 28,
+      "distance": 7.8,
+      "location": "Cordoba, Cordoba",
+      "specs": "Manual | 5 Asientos | Aire Acondicionado",
+      "features": [
+        "ac"
+      ],
+      "imageUrl": "/assets/Ford/Ecosport (1).jpg",
+      "id": 6
+    },
+    {
+      "title": "Toyota GR Yaris 2024",
+      "type": "hatchback",
+      "price": 12500,
+      "rating": 4.7,
+      "reviews": 10,
+      "distance": 1.1,
+      "location": "Belgrano, CABA",
+      "specs": "Manual | 2 Asientos | Aire Acondicionado",
+      "features": [
+        "ac"
+      ],
+      "imageUrl": "/assets/Toyota/Yaris (1).jpg",
+      "id": 7
+    }
+  ]
+}
