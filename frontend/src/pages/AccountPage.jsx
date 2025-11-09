@@ -11,15 +11,27 @@ const AccountPage = () => {
     const [messageType, setMessageType] = useState('error');
     const navigate = useNavigate(); // Requisito: useNavigate
 
+    // Logo desde la carpeta /public
+    const blackLogo = '/black-logo.png';
+
     const showPanel = (isLogin) => {
         setIsLoginPanel(isLogin);
         setMessage('');
     };
 
-    // Requisito: Validaciones en tiempo real (manejo de estado)
+    // --- MANEJO DE ESTADO DE FORMULARIOS ---
+
+    // Manejador para el formulario de INICIO DE SESIÓN
+    const handleLoginChange = (e) => {
+        setLoginForm({...loginForm, [e.target.name]: e.target.value});
+    };
+
+    // Manejador para el formulario de REGISTRO (Requisito: Validaciones en tiempo real)
     const handleRegisterChange = (e) => {
         setRegisterForm({...registerForm, [e.target.name]: e.target.value});
     };
+
+    // --- MANEJADORES DE ENVÍO ---
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -73,7 +85,7 @@ const AccountPage = () => {
             setMessage(`¡Bienvenido de vuelta, ${user.name}! Ingreso exitoso.`);
             setMessageType('success');
 
-            // Simulación de guardar el usuario loggeado en SessionStorage o Estado Global
+            // Simulación de guardar el usuario loggeado
             sessionStorage.setItem('loggedInUser', JSON.stringify(user));
 
             // Redirigir a la página de inicio
@@ -92,7 +104,7 @@ const AccountPage = () => {
             <div className="auth-container">
                 {/* LOGO DE THERA */}
                 <div className="auth-logo">
-                    <img src={isLoginPanel ? "/black-logo.png" : "/black-logo.png"} alt="Thera logo"/>
+                    <img src={blackLogo} alt="Thera logo"/>
                 </div>
 
                 {/* PESTAÑAS */}
@@ -108,7 +120,37 @@ const AccountPage = () => {
                 {/* 1. FORMULARIO DE INICIO DE SESIÓN */}
                 {isLoginPanel && (
                     <form onSubmit={handleLogin}>
-                        {/* ... Grupos de formulario ... */}
+
+                        {/* CAMPO: CORREO ELECTRÓNICO */}
+                        <div className="auth-form-group">
+                            <label htmlFor="login-email">Correo Electrónico</label>
+                            <input
+                                id="login-email"
+                                name="email"
+                                value={loginForm.email}
+                                onChange={handleLoginChange}
+                                placeholder="tu.correo@ejemplo.com"
+                                required
+                                type="email"
+                                maxLength="50"
+                            />
+                        </div>
+
+                        {/* CAMPO: CONTRASEÑA */}
+                        <div className="auth-form-group">
+                            <label htmlFor="login-password">Contraseña</label>
+                            <input
+                                id="login-password"
+                                name="password"
+                                value={loginForm.password}
+                                onChange={handleLoginChange}
+                                placeholder="Tu contraseña"
+                                required
+                                type="password"
+                                maxLength="24"
+                            />
+                        </div>
+
                         <div className="auth-forgot-password"><Link to="#">¿Olvidaste tu contraseña?</Link></div>
                         <Button type="submit" className="auth-btn-submit">Ingresar a Thera</Button>
                     </form>
@@ -117,13 +159,68 @@ const AccountPage = () => {
                 {/* 2. FORMULARIO DE REGISTRO */}
                 {!isLoginPanel && (
                     <form onSubmit={handleRegister}>
-                        {/* Requisito: Validaciones en tiempo real (inputs y onChange) */}
+
+                        {/* CAMPO: NOMBRE COMPLETO */}
                         <div className="auth-form-group">
                             <label htmlFor="register-name">Nombre Completo</label>
-                            <input id="register-name" name="name" value={registerForm.name}
-                                   onChange={handleRegisterChange} required type="text"/>
+                            <input
+                                id="register-name"
+                                name="name"
+                                value={registerForm.name}
+                                onChange={handleRegisterChange}
+                                placeholder="Juan Pérez"
+                                required
+                                type="text"
+                                maxLength="50"
+                            />
                         </div>
-                        {/* ... El resto de los inputs ... */}
+
+                        {/* CAMPO: CORREO ELECTRÓNICO */}
+                        <div className="auth-form-group">
+                            <label htmlFor="register-email">Correo Electrónico</label>
+                            <input
+                                id="register-email"
+                                name="email"
+                                value={registerForm.email}
+                                onChange={handleRegisterChange}
+                                placeholder="tu.correo@ejemplo.com"
+                                required
+                                type="email"
+                                maxLength="50"
+                            />
+                        </div>
+
+                        {/* CAMPO: CONTRASEÑA */}
+                        <div className="auth-form-group">
+                            <label htmlFor="register-password">Contraseña</label>
+                            <input
+                                id="register-password"
+                                name="password"
+                                value={registerForm.password}
+                                onChange={handleRegisterChange}
+                                placeholder="Mínimo 6 caracteres"
+                                required
+                                type="password"
+                                minLength="6"
+                                maxLength="24"
+                            />
+                        </div>
+
+                        {/* CAMPO: CONFIRMAR CONTRASEÑA */}
+                        <div className="auth-form-group">
+                            <label htmlFor="register-confirm-password">Confirmar Contraseña</label>
+                            <input
+                                id="register-confirm-password"
+                                name="confirmPassword" // Usamos confirmPassword para el estado
+                                value={registerForm.confirmPassword}
+                                onChange={handleRegisterChange}
+                                placeholder="Repite la contraseña"
+                                required
+                                type="password"
+                                minLength="6"
+                                maxLength="24"
+                            />
+                        </div>
 
                         <Button type="submit" className="auth-btn-submit">Crear Cuenta Thera</Button>
                     </form>
