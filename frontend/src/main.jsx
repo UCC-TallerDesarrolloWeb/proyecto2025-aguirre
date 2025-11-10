@@ -22,6 +22,9 @@ const router = createBrowserRouter([
         ],
     },
     {
+        basename: '/proyecto2025-aguirre/'
+    },
+    {
         path: '/',
         element: <SearchLayout/>,
         children: [
