@@ -46,7 +46,7 @@ auto por días, a la vez que permite a los propietarios obtener ingresos de su v
 
 Puedes acceder a la versión desplegada del proyecto a través de GitHub Pages en el siguiente enlace:
 
-* **Link de GitHub Pages:** [Proyecto THERA](https://ucc-tallerdesarrolloweb.github.io/proyecto2025-aguirre/frontend/index.html)
+* **Link de GitHub Pages:** [Proyecto THERA](https://ucc-tallerdesarrolloweb.github.io/proyecto2025-aguirre)
 
 ---
 
