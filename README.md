@@ -1,8 +1,6 @@
 # proyecto2025
 Estructura de Proyecto Taller de Desarrollo Web - 2025
 
-# **THERA: La Plataforma de Carsharing en Argentina**
-
 > *Proyecto de Taller de Desarrollo Web 2025*
 
 ---
@@ -10,7 +8,7 @@ Estructura de Proyecto Taller de Desarrollo Web - 2025
 ## Índice del Proyecto
 
 1. [Descripción General](#1-descripción-general)
-2. [Autores](#2-autores)
+2. [Autores](#2-autor)
 3. [Acceso al Proyecto](#3-acceso-al-proyecto)
 4. [Tecnologías Utilizadas](#4-tecnologías-utilizadas)
 5. [Estructura y Contenido de la Página](#5-estructura-y-contenido-de-la-página)
@@ -34,7 +32,7 @@ auto por días, a la vez que permite a los propietarios obtener ingresos de su v
 
 ---
 
-## 2. Autores
+## 2. Autor
 
 | Nombre y Apellido|
 |:-----------------|

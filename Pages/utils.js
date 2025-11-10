@@ -10,7 +10,7 @@ const vehiculos = [
         location: "Palermo, CABA",
         specs: "Automático | 5 Asientos | Aire Acondicionado",
         features: ["auto", "ac"],
-        imageUrl: "Imagenes/Jeep/Jeep%20Cherokee%20(1).jpg"
+        imageUrl: "Imagenes/Jeep/Jeep%20Cherokee%20(1).jpg",
     },
     {
         title: "VW Taos 2023",
@@ -33,7 +33,8 @@ const vehiculos = [
         distance: 5.2,
         location: "Palermo, CABA",
         specs: "Automático | 4 Asientos | Aire Acondicionado",
-        features: ["auto", "ac"], imageUrl: "Imagenes/Audi/RS3 (1).jpg"
+        features: ["auto", "ac"],
+        imageUrl: "Imagenes/Audi/RS3 (1).jpg"
     },
     {
         title: "Ford F-150 Raptor",
