@@ -271,7 +271,7 @@ const HomePage = () => {
                         </div>
 
                         <div className="faq-item">
-                            <input className="faq-toggle" id="faq4" name="faq3" type="checkbox"/>
+                            <input className="faq-toggle" id="faq4" name="faq4" type="checkbox"/>
                             <label className="faq-question" htmlFor="faq4">¿Qué pasa si tengo que cancelar mi
                                 reserva?</label>
                             <div className="faq-answer">
