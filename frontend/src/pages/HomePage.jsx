@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom';
 import Button from '@components/Button';
 import CarCard from '@components/CarCard';
 import {MOCK_VEHICLES} from '@api/vehiclesApi';
+import {validateDateRange} from '../utils/dateValidation.js';
 
-const whiteLogo = '/white-logo.png';
+const whiteLogo = 'proyecto2025-aguirre/white-logo.png';
 
 const HomePage = () => {
     const heroRef = useRef(null);
@@ -22,111 +23,51 @@ const HomePage = () => {
 
     const popularCars = MOCK_VEHICLES.slice(0, 7);
 
-    // --- Validación y Reseteo ---
-    const handleDateValidation = (currentDate, type) => {
-        // Convertir las fechas a objetos Date para facilitar la comparación
-        const todayDate = new Date(todayFormatted);
-        const maxDate = new Date(MAX_DATE);
-        const inputDate = new Date(currentDate);
-
-        // 1. Si la fecha es anterior a hoy O posterior a la fecha máxima
-        if (inputDate < todayDate || inputDate > maxDate) {
-
-            // 2. Resetear la fecha actual a la de hoy
-            if (type === 'start') {
-                setStartDate(todayFormatted);
-                // Si la fecha de fin actual es anterior a hoy, también la reseteamos
-                if (new Date(endDate) < todayDate) {
-                    setEndDate(todayFormatted);
-                }
-                return todayFormatted; // Devolver la fecha válida
-            } else if (type === 'end') {
-                setEndDate(todayFormatted);
-                return todayFormatted; // Devolver la fecha válida
-            }
-        }
-        return currentDate; // Devolver la fecha si es válida
-    };
-
-
     // Handler para la fecha de inicio
     const handleStartDateChange = (e) => {
-        let newStartDate = e.target.value;
+        const validatedDate = validateDateRange(e.target.value, todayFormatted, MAX_DATE);
+        setStartDate(validatedDate);
 
-        // 1. Validar y resetear si es necesario
-        newStartDate = handleDateValidation(newStartDate, 'start');
-
-        setStartDate(newStartDate);
-
-        // 2. Asegurar que la fecha de fin no sea anterior a la de inicio
-        if (endDate < newStartDate) {
-            setEndDate(newStartDate);
+        if (endDate < validatedDate) {
+            setEndDate(validatedDate);
         }
     };
 
-    // Handler para la fecha de fin
     const handleEndDateChange = (e) => {
-        let newEndDate = e.target.value;
-
-        // 1. Validar y resetear si es necesario
-        newEndDate = handleDateValidation(newEndDate, 'end');
-
-        setEndDate(newEndDate);
+        const validatedDate = validateDateRange(e.target.value, todayFormatted, MAX_DATE);
+        setEndDate(validatedDate);
     };
 
-    // --- Lógica de Manejo de Fechas ---
     useEffect(() => {
         const dateStartInput = document.getElementById('searchBar_dateStart');
         if (dateStartInput) {
             dateStartInput.setAttribute('min', todayFormatted);
         }
-        // Las restricciones 'max' y la sincronización 'min' se manejan directamente en el JSX y los handlers.
-    }, []);
+    }, [todayFormatted]);
 
     useEffect(() => {
         if (!navBarRef.current || !heroRef.current) return;
-
-        // 1. Medir la altura de la NavigationBar una sola vez.
         if (navHeight === 0) {
-            // Usamos setTimeout para asegurar que la barra ha terminado de renderizarse y tiene su altura final.
             const measureHeight = () => {
                 setNavHeight(navBarRef.current.offsetHeight);
             };
-            // Retraso ligero para asegurar medición correcta
             const timer = setTimeout(measureHeight, 50);
             return () => clearTimeout(timer);
         }
 
-        // 2. Lógica de Scroll
         const handleScroll = () => {
             const heroBottom = heroRef.current.getBoundingClientRect().bottom;
-            const shouldBeSticky = heroBottom <= 0;
-
-            if (shouldBeSticky) {
-                // Aplicar clase 'nav-sticky' al wrapper del nav
+            if (heroBottom <= 0) {
                 navBarRef.current.classList.add('nav-sticky');
-
-                // Aplicar padding-top al contenido siguiente para compensar el espacio (evita el salto)
-                if (contentRef.current) {
-                    contentRef.current.style.paddingTop = `${navHeight}px`;
-                }
+                if (contentRef.current) contentRef.current.style.paddingTop = `${navHeight}px`;
             } else {
-                // Remover la clase
                 navBarRef.current.classList.remove('nav-sticky');
-
-                // Remover el padding para que el contenido vuelva a su posición normal
-                if (contentRef.current) {
-                    contentRef.current.style.paddingTop = '0';
-                }
+                if (contentRef.current) contentRef.current.style.paddingTop = '0';
             }
         };
 
         window.addEventListener('scroll', handleScroll);
-        handleScroll();
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [navHeight]);
     // Depende de navHeight una vez (cuando es 0), y después funciona con el valor fijo.
 

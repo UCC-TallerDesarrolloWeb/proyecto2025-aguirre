@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import offsetLogo from '../../public/offset-logo.png';
+import {validateDateRange} from "../utils/dateValidation.js";
 
 const NavigationBar = () => {
     const location = useLocation();
@@ -8,53 +9,30 @@ const NavigationBar = () => {
 
     // --- Lógica de Fechas y Validación ---
     const todayFormatted = new Date().toISOString().split('T')[0];
-    const MAX_DATE = "2026-12-31"; // Límite superior definido
+    const MAX_DATE = "2026-12-31";
 
-    // Estado para la barra de búsqueda compacta
+// Estado para la barra de búsqueda compacta
     const [compactStartDate, setCompactStartDate] = useState(todayFormatted);
     const [compactEndDate, setCompactEndDate] = useState(todayFormatted);
 
-    // Función de Validación y Reseteo (Duplicada/Adaptada de HomePage)
-    const handleDateValidation = (currentDate, type) => {
-        const todayDate = new Date(todayFormatted);
-        const maxDate = new Date(MAX_DATE);
-        const inputDate = new Date(currentDate);
-
-        // Si la fecha es anterior a hoy O posterior a la fecha máxima
-        if (inputDate < todayDate || inputDate > maxDate) {
-            return todayFormatted;
-        }
-        return currentDate;
-    };
-
+// Handler para la fecha de inicio compacta
     const handleCompactStartDateChange = (e) => {
-        let newStartDate = e.target.value;
+        // Utilizamos la utilidad externa
+        const validatedDate = validateDateRange(e.target.value, todayFormatted, MAX_DATE);
+        setCompactStartDate(validatedDate);
 
-        // 1. Validar y resetear si es necesario
-        newStartDate = handleDateValidation(newStartDate, 'start');
-
-        setCompactStartDate(newStartDate);
-
-        // 2. Asegurar que la fecha de fin no sea anterior a la de inicio
-        if (compactEndDate < newStartDate) {
-            setCompactEndDate(newStartDate);
+        // Asegurar que la fecha de fin no sea anterior a la de inicio
+        if (compactEndDate < validatedDate) {
+            setCompactEndDate(validatedDate);
         }
     };
 
+// Handler para la fecha de fin compacta
     const handleCompactEndDateChange = (e) => {
-        let newEndDate = e.target.value;
-
-        // 1. Validar y resetear si es necesario
-        newEndDate = handleDateValidation(newEndDate, 'end');
-
-        setCompactEndDate(newEndDate);
+        // Utilizamos la utilidad externa
+        const validatedDate = validateDateRange(e.target.value, todayFormatted, MAX_DATE);
+        setCompactEndDate(validatedDate);
     };
-
-    // Efecto para asegurar que la fecha minima de inicio este bien
-    useEffect(() => {
-        if (!isSearchPage) return;
-    }, [isSearchPage]);
-
 
     return (
         <nav id="navigationBar">

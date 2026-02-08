@@ -12,7 +12,7 @@ const AccountPage = () => {
     const navigate = useNavigate(); // Requisito: useNavigate
 
     // Logo desde la carpeta /public
-    const blackLogo = '/black-logo.png';
+    const blackLogo = 'black-logo.png';
 
     const showPanel = (isLogin) => {
         setIsLoginPanel(isLogin);
