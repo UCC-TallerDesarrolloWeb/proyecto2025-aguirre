@@ -13,30 +13,36 @@ import CarSearchPage from '@pages/CarSearchPage';
 
 const router = createBrowserRouter([
     {
+        // One main root path
         path: '/',
-        element: <AppLayout/>,
         children: [
-            {index: true, element: <HomePage/>},
-            {path: 'about-us.html', element: <AboutPage/>},
-            {path: 'faq.html', element: <FAQPage/>},
+            {
+                // Group 1: Using AppLayout
+                element: <AppLayout/>,
+                children: [
+                    {index: true, element: <HomePage/>},
+                    {path: 'about-us.html', element: <AboutPage/>},
+                    {path: 'faq.html', element: <FAQPage/>},
+                ]
+            },
+            {
+                // Group 2: Using SearchLayout
+                element: <SearchLayout/>,
+                children: [
+                    {path: 'car-search.html', element: <CarSearchPage/>},
+                ]
+            },
+            {
+                // Standalone page (No Layout)
+                path: 'account.html',
+                element: <AccountPage/>,
+            },
         ],
     },
-    {
-        basename: '/proyecto2025-aguirre/'
-    },
-    {
-        path: '/',
-        element: <SearchLayout/>,
-        children: [
-            {path: 'car-search.html', element: <CarSearchPage/>},
-        ],
-    },
-    {
-        // Ruta que no usa el Layout completo (solo para la página de login/registro)
-        path: '/account.html',
-        element: <AccountPage/>,
-    },
-]);
+], {
+    // This MUST match your vite.config.js base
+    basename: '/proyecto2025-aguirre'
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
