@@ -140,3 +140,11 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+.auth-message.error {
+  color: red;
+}
+
+.auth-message.success {
+  color: green;
+}

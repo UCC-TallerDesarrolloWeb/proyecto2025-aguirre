@@ -228,7 +228,7 @@ const AccountPage = () => {
 
                 {/* Mensaje de estado */}
                 {message && (
-                    <p className="auth-message" style={{color: messageType === 'error' ? 'red' : 'green'}}>
+                    <p className={`auth-message ${messageType === 'error' ? 'error' : 'success'}`}>
                         {message}
                     </p>
                 )}
