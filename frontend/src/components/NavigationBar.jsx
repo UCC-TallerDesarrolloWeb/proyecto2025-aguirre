@@ -68,7 +68,7 @@ const NavigationBar = () => {
             {isSearchPage && (
                 <form className="search-form compact-search-form">
                     <label htmlFor="location-search-input"></label>
-                    <input autocomplete="off"
+                    <input autoComplete="off"
                            className="location-input search-input"
                            id="location-search-input"
                            maxLength="100"
